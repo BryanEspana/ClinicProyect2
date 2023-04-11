@@ -5,7 +5,6 @@ Instalar Python y configurar ruta PATH
 Instalaciones necesarias para el pip: (pip install nombre)
 - flask
 - flask-login
-- flask
 - flask-WTF
 - virtualenv
 - psycopg2

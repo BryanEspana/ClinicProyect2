@@ -4,7 +4,6 @@
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
-
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/login.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +12,23 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="form-container">
+      <h2>Iniciar Sesión</h2>
+      <form action="">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required>
+  
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+  
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <a href="#">¿Olvidaste tu contraseña?</a>
+      <a href="{{ url_for('login') }}">Regresar</a>
 
-<body class="">
-    <h1> Login</h1>
-</body>
+    </div>
+  </div>
+  
+  
 {% endblock %}
