@@ -3,7 +3,7 @@
 {% block title %}Main{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +20,9 @@
     </div>
     <div class="padR2 padT05">
         <button class="buttonRegister">Registrarse</button>
-        <button class="shadow btnLogin">Iniciar Sesión</button>
-
+        <a href="{{ url_for('login') }}">
+            <button class="shadow btnLogin">Iniciar Sesión</button>
+        </a>
     </div>
 
 </header>
