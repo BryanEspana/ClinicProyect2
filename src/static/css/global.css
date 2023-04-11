@@ -2,7 +2,10 @@
 .flex-row{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
 }
 .padR2{
     padding-right: 2rem;
@@ -60,6 +63,6 @@ h2{
     color: #4987ba;
 }
 h1{
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 800;
 }

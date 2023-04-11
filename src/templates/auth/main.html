@@ -12,7 +12,7 @@
 
 {% block body %}
 <header class="header-top flex-row">
-    <div class="padT1 padL1">Logo</div>
+    <img class="logo-img" src="static\img\logo.png">
     <div class=" flex-row encabezado padT1">
         <p class="padR4 hover-p">Inicio</p>
         <p class="padR4 hover-p">Acerca de</p>
@@ -27,12 +27,16 @@
 </header>
 
 <body>
-    
-    <div class="Text-bienvenida">
-        <h2 class="box-decoration-text">Administra tu clinica</h2>
-        <h1>La salud de tus pacientes es nuestra prioridad </h1>
-        <p>Existen pocas aplicaciones para administrar clinicas, hospitales o sanatorios, con nuestra aplicacion podrás administrar tus pacientes, medicamentos y citas</p>
-        <button>Comenzar ahora</button>
+    <div class="flex-row">
+        <div class="Text-bienvenida">
+            <h2 class="box-decoration-text">Administra tu clinica</h2>
+            <h1>La salud de tus pacientes es nuestra prioridad </h1>
+            <p>Existen pocas aplicaciones para administrar clinicas, hospitales o sanatorios, con nuestra aplicacion podrás administrar tus pacientes, medicamentos y citas al alcance de pocos clicks</p>
+            <button>Comenzar ahora</button>
+        </div>
+        <img src="static\img\image.png" class="img-image">
+
     </div>
+
 </body>
 {% endblock %}
