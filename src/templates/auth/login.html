@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<header class="header-top flex-row">
+    <div class="padT1 padL1">Logo</div>
+    <div class=" flex-row encabezado padT1">
+        <p class="padR4 hover-p">Inicio</p>
+        <p class="padR4 hover-p">Acerca de</p>
+        <p class="padR4 hover-p">Servicios</p>
+    </div>
+    <div class="padR2 padT05">
+        <button class="buttonRegister">Registrarse</button>
+        <button class="shadow btnLogin">Iniciar Sesión</button>
+
+    </div>
+
+</header>
+
+<body>
+    
+    <div class="Text-bienvenida">
+        <h2 class="box-decoration-text">Administra tu clinica</h2>
+        <h1>La salud de tus pacientes es nuestra prioridad </h1>
+        <p>Existen pocas aplicaciones para administrar clinicas, hospitales o sanatorios, con nuestra aplicacion podrás administrar tus pacientes, medicamentos y citas</p>
+        <button>Comenzar ahora</button>
+    </div>
+</body>
+{% endblock %}
