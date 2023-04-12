@@ -1,4 +1,6 @@
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -56,12 +58,21 @@ class Transladomedico(db.Model):
     hospital_origen = db.relationship('Hospital', foreign_keys=[hospital_origen_id], backref=db.backref('traslados_salientes', lazy=True))
     hospital_destino = db.relationship('Hospital', foreign_keys=[hospital_destino_id], backref=db.backref('traslados_entrantes', lazy=True))
 
-class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
 
+class Usuario(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), index=True, unique=True)
+    password_hash = db.Column(db.String(128))
+
+    def __repr__(self):
+        return f'<Usuario {self.username}>'
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
 class Bitacora(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=False)

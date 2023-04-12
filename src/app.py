@@ -34,6 +34,7 @@ def register_routes(app):
             return "No se encontraron hospitales en la base de datos"
 
 
+
 app = create_app()
 
 if __name__ == '__main__':

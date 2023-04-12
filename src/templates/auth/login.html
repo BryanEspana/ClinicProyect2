@@ -23,9 +23,13 @@
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" required>
   
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-  
+        <div class="campo">
+          <label for="password">Contraseña</label>
+          <input type="password" name="password" id="password">
+          <span class="text-password-view"  onpaste="return false">
+            <img src="\static\img\visibility_on.png" class="iconsee">
+          </span>
+      </div>
         <button class="button-style">Iniciar Sesión</button>
       </form>
       <div class="flex-row center">
@@ -40,6 +44,20 @@
 </body>
 
 
-
+<script>
+document.querySelector('.campo span').addEventListener('click', e => {
+    const passwordInput = document.querySelector('#password');
+    if (e.target.classList.contains('show')) {
+        
+        e.target.classList.remove('show');
+        e.target.textContent = 'Ocultar';
+        passwordInput.type = 'text';
+    } else {
+        e.target.classList.add('show');
+        e.target.textContent = 'Mostrar';
+        passwordInput.type = 'password';
+    }
+});
+</script>
   
 {% endblock %}
