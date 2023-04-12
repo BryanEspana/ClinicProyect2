@@ -6,15 +6,19 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/login.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-<div class="container">
+
+<body class="imagenfondo">
+  <div class="container contenido">
     <div class="form-container">
-      <h2>Iniciar Sesión</h2>
+      <img class="logo-img centerPadMar" src="/static/img/logo.png">
+
       <form action="">
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" required>
@@ -22,13 +26,20 @@
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
   
-        <button type="submit">Iniciar Sesión</button>
+        <button class="button-style">Iniciar Sesión</button>
       </form>
+      <div class="flex-row center">
+        <p>¿No tienes cuenta?</p>
+        <a href="{{ url_for('index') }}" class="register-text">Registrate aquí </a>
+      </div>
       <a href="#">¿Olvidaste tu contraseña?</a>
-      <a href="{{ url_for('login') }}">Regresar</a>
+      <a href="{{ url_for('index') }}">Regresar</a>
 
     </div>
   </div>
-  
+</body>
+
+
+
   
 {% endblock %}

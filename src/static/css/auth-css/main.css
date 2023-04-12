@@ -39,7 +39,7 @@ body, html {
     grid-template-rows: auto;
 }
 .logo-img{
-    width: 10%;
+    width: 200px;
 }
 .img-image{
     /*transform:  translate(0px);*/
