@@ -10,6 +10,8 @@ Instalaciones necesarias para el pip: (pip install nombre)
 - psycopg2
 - psycopg2-binary 
 - Flask-SQLAlchemy
+- Flask-MySQLdb
+- mysql.connector
 
 
 Para correr el proyecto solamente se debe de ejecutar el archivo
