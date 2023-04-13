@@ -1,7 +1,9 @@
 class DevelopmentConfig():
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:190319@localhost/proyect2'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MYSQL_HOST = 'db1proyecto.cd5zvwqtmiac.us-east-2.rds.amazonaws.com'
+    MYSQL_USER = 'admin'
+    MYSQL_PASSWORD = 'BryanJavierSebas'
+    MYSQL_DB = 'tubasededatos'
 
 config = {
     'development': DevelopmentConfig
