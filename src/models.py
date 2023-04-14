@@ -1,8 +1,8 @@
 from flask_login import UserMixin
-from flask_Mysqldb import MySQL
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-db = MySQL()
+db = SQLAlchemy()
 
 class Hospital(db.Model):
     id = db.Column(db.Integer, primary_key=True)
