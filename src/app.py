@@ -15,6 +15,10 @@ def login():
 def register():
     return render_template('auth/register.html')
 
+@app.route('/inicio')
+def inicio():
+    return render_template('dashboard/dashboard.html')
+
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run()

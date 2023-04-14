@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Main{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='\dashboard\dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<body class="center">
+    <div class="flex-row">
+        <div class="fondo">
+            <img src="static\img\logoBlanco.png" style="width: 100px;">
+        </div>
+        <h1>asdfasd</h1>
+
+    </div>
+</body>
+{% endblock %}
