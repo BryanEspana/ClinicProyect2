@@ -42,7 +42,12 @@
 .marT1{
     margin-top: 1rem;
 }
-
+.marR2{
+    margin-right: 2rem;
+}
+.marR3{
+    margin-right: 3rem;
+}
 
 button{
     font-family: 'Poppins', sans-serif;

@@ -11,6 +11,10 @@ def index():
 def login():
     return render_template('auth/login.html')
 
+@app.route('/auth/register')
+def register():
+    return render_template('auth/register.html')
+
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run()
