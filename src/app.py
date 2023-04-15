@@ -37,5 +37,21 @@ def register_routes(app):
 
 app = create_app()
 
+@app.route('/auth/register')
+def register():
+    return render_template('auth/register.html')
+
+@app.route('/inicio')
+def inicio():
+    return render_template('dashboard/dashboard.html')
+
+@app.route('/pacientes')
+def paciente():
+    return render_template('pacientes/paciente.html')
+
+@app.route('/medicamentos')
+def medicamentos():
+    return render_template('medicamentos/medicamento.html')
+
 if __name__ == '__main__':
     app.run()

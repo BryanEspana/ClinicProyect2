@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Main{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/auth.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+<body class="imagenfondo"">
+  <div class="container contenido">
+    <div class="form-container-register "  style="overflow: auto; height: 650px;">
+        <h2>¡Crea una cuenta!</h2>
+
+      <form action="">
+        <!--Usuario-->
+        <label for="username" class="titleSelect">Usuario:</label>
+        <input type="text" id="username" name="username" required>
+  
+        <!--Contraseña-->
+        <label for="password" class="titleSelect">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+  
+        <!--Confirmar contraseña-->
+        <label for="confirm-password" class="titleSelect">Confirmar contraseña:</label>
+        <input type="password" id="password" name="password" required>
+          
+        <!--Establecimiento-->
+        <label for="establecimiento" class="titleSelect">Selecciona un establecimiento:</label>
+            <select id="establecimiento" name="establecimiento" class="popupSelect">
+            <option value="hospital">Hospital</option>
+            <option value="centro-salud">Centro de Salud</option>
+            <option value="clinica">Clínica</option>
+            </select>
+
+        <!--Telefono y numero de colegiado-->
+        <div class="flex-row container">
+            <div class="marR3">
+                <label for="phone" class="titleSelect">Telefono:</label>
+                <input type="text" id="numero" name="numero" onkeypress="return validaNumero(event);" required>
+            </div>
+
+            <div>
+                <label for="colegiado" class="titleSelect">Colegiado:</label>
+                <input type="text" required>
+            </div>
+
+
+        </div>
+
+        <!--Dirección-->
+        <label for="direction" class="titleSelect">Dirección:</label>
+        <input type="text"required>
+
+        <!--Especialidad-->
+        <label for="especialidad" class="titleSelect">Especialidad:</label>
+        <input type="text" required>
+
+        <button class="button-style">Iniciar Sesión</button>
+      </form>
+      <div class="flex-row center">
+        <p>¿Si tienes una cuenta?</p>
+        <a href="{{ url_for('login') }}" class="register-text">Inicia sesión </a>
+      </div>
+      <a href="{{ url_for('index') }}">Regresar</a>
+
+    </div>
+  </div>
+</body>
+
+
+    
+
+<script>
+    function validaNumero(event) {
+      // Obtenemos el código de la tecla pulsada
+      var charCode = event.which ? event.which : event.keyCode;
+    
+      // Si la tecla pulsada es un número, permitimos la entrada
+      if (charCode >= 48 && charCode <= 57) {
+        return true;
+      } else {
+        // Si la tecla pulsada no es un número, impedimos la entrada
+        event.preventDefault();
+        return false;
+      }
+    }
+    </script>
+  
+{% endblock %}

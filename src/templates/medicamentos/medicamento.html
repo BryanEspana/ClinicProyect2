@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Main{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<header class="header-top flex-row" style="background-color: #4b7fbd;">
+    <img class="logo-img" src="static\img\logoBlanco.png">
+    <div class=" flex-row encabezado ">
+        <!--Inicio-->
+        <a href=""><p class="padR4 hover-p padT1">Inicio</p></a>
+        <!--Establecimientos-->
+        <a href=""><p class="padR4 hover-p padT1">Establecimientos</p></a>
+        <!--Medicamentos-->
+        <a href=""><p class="padR4 hover-p padT1">Medicamentos</p></a>
+        <!--Pacientes-->
+        <a href=""><p class="padR4 hover-p padT1">Pacientes</p></a>
+
+        <!--Icono Usuario-->
+          <div class="profile-img-container">
+            <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
+        </div>
+          
+    </div>
+
+</header>
+<body class="center">
+
+    <!--Pestaña info pacientes-->
+    <div class="center flex-row">
+        <!--IMagen GIF-->
+        <div class="container-img">
+            <img src="static/img/logo-img.gif" class="img-gif" alt="">
+        </div>
+        <!--TExto bienvenida-->
+        <div class="flex-column container-center">
+            <h1 class="size">Administra tu clinica</h1>
+            <p class="text-grey">¡Bienvenido a nuestro sistema de gestión de clínicas! Nuestra plataforma te permite acceder a tus datos médicos y programar citas con tus doctores de manera sencilla y segura.</p>
+            <button class="button-pacientes">Ver pacientes</button>
+        </div>
+
+    </div>
+    
+<script>
+    var texto = document.querySelector('.text-establecimiento');
+    var contenido = texto.innerHTML;
+    if (contenido.length > 20) {
+    texto.innerHTML = contenido.substring(0, 20) + '...';
+    }
+
+</script>
+{% endblock %}

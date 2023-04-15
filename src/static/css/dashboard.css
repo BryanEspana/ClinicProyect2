@@ -1,0 +1,120 @@
+
+html, body {
+    height: 100%;
+    overflow: auto;
+  }
+  
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: white;
+}
+.profile-img-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow:hidden;
+}
+
+.profile-img-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.size{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 58px !important;
+}
+
+.button-style{
+    border-radius: 0.8rem;
+    padding: 0.8rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.button-pacientes{
+    padding: auto;
+    margin: auto;
+    width: 30%;
+}
+.container-center {
+    width: 40%;
+    height: 50%;
+    padding: auto;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10rem;
+    margin-left: 6rem;
+}
+.container-medic{
+    padding-top: 6rem;
+    width: 48%;
+    height: 80%;
+    padding: auto;
+    margin: auto;
+    justify-content: left;
+    text-align: left;
+    margin-top: 10rem;
+    margin-left: 6rem;
+}
+.img-gif{
+    width: 400px;
+}
+.img-medicamentos{
+    width: 500px;
+    position:relative;
+    top:-5rem;  
+    right: 8rem;
+    z-index: -10000;
+ 
+}
+.container-fixed {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    width: 250px;
+    background-color: #4987ba;
+    position: fixed;
+    bottom: 4rem;
+    right: 0px;
+  }
+  .title-fixed{
+    padding-top: 0.8rem;
+    padding-bottom: 0.3rem;
+    padding-left: 1rem;
+    text-align: left;
+    border-top-left-radius: 1rem;
+    background-color: #e7e5e3;
+  }
+  
+.icon-location{
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-left: 1rem;
+    padding-top: 0.5rem;
+    width: 10%;
+    height: 10%;
+}
+.text-establecimiento{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+}
+.container-img{
+    margin-top: 2.5rem;
+}
+.barras{
+    width: 100%;
+    z-index: 10000;
+    background-color: #4987ba;
+}

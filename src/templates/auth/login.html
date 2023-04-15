@@ -4,7 +4,7 @@
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/auth.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +20,7 @@
       <img class="logo-img centerPadMar" src="/static/img/logo.png">
 
       <form action="">
+        <!--Usuario-->
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" required>
   
@@ -31,10 +32,14 @@
           </span>
       </div>
         <button class="button-style">Iniciar Sesión</button>
+        
+        <a href="{{url_for('inicio')}}">
+        Demo dashboard
+        </a>
       </form>
       <div class="flex-row center">
         <p>¿No tienes cuenta?</p>
-        <a href="{{ url_for('index') }}" class="register-text">Registrate aquí </a>
+        <a href="{{ url_for('register') }}" class="register-text">Registrate aquí </a>
       </div>
       <a href="#">¿Olvidaste tu contraseña?</a>
       <a href="{{ url_for('index') }}">Regresar</a>

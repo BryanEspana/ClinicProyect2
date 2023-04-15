@@ -42,7 +42,12 @@
 .marT1{
     margin-top: 1rem;
 }
-
+.marR2{
+    margin-right: 2rem;
+}
+.marR3{
+    margin-right: 3rem;
+}
 
 button{
     font-family: 'Poppins', sans-serif;
@@ -75,4 +80,17 @@ h2{
 h1{
     font-size: 50px;
     font-weight: 800;
+}
+
+p{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+.text-grey{
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: grey;
+}
+.titulo{
+    padding-top: 2rem;
 }
