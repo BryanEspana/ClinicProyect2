@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 {% extends 'base.html' %}
 
 {% block title %}Main{% endblock %}
@@ -5,9 +7,8 @@
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/establecimiento.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +16,8 @@
 {% endblock %}
 
 {% block body %}
+<!DOCTYPE html>
+<html lang="es">
 <header class="header-top flex-row" style="background-color: #4b7fbd;">
     <img class="logo-img" src="static\img\logoBlanco.png">
     <div class=" flex-row encabezado ">
@@ -38,17 +41,105 @@
 <body class="center">
 
     <!--Pestaña info pacientes-->
-    <div class="center flex-row">
+    <div class="center flex-column">
         
         <h3 class="titulo">Establecimiento:</h3>
+
+        <div class="flex-row establecimientoTitulos">
+            <p class="padR4 inventario" id="btn-inventario">Inventario</p>
+            <p class="personal" id="btn-personal">Personal</p>
+        </div>
+
+        <div class="padT3 Organiza-establ" style=" display: true;">
+            <h2>Organiza tu establecimiento</h2>
+        </div>
+        <!--Tabla de inventario-->
+        <div class="margin tabla-inventario"  style="display: none;">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Masa Corporal</th>
+                  <th>Teléfono</th>
+                  <th>Más Información</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Juan Pérez</td>
+                  <td>22</td>
+                  <td>+1 (555) 123-4567</td>
+                  <td><a href="#" class="btn-info">Ver más</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Maria Rodríguez</td>
+                  <td>25</td>
+                  <td>+1 (555) 987-6543</td>
+                  <td><a href="#" class="btn-info">Ver más</a></td>
+                </tr>
+                <!-- Agrega más filas aquí siguiendo el mismo formato -->
+              </tbody>
+            </table>
+          </div>
+
+          <!--Tabla de personal-->
+          <div class="margin tabla-personal"  style="display: none;">
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                </tr>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>35</td>
+                </tr>
+                <tr>
+                    <td>Jane</td>
+                    <td>Doe</td>
+                    <td>30</td>
+                </tr>
+            </table>
+          </div>
     </div>
     
 <script>
+    
+    document.addEventListener('DOMContentLoaded', () => {
+    const btnInventario = document.querySelector('#btn-inventario');
+    const btnPersonal = document.querySelector('#btn-personal');
+    const tablaInventario = document.querySelector('.tabla-inventario');
+    const tablaPersonal = document.querySelector('.tabla-personal');
+    const textOrganiza = document.querySelector('.Organiza-establ');
+    
+    btnInventario.addEventListener('click', () => {
+        tablaInventario.style.display = 'block';
+        tablaPersonal.style.display = 'none';
+        tablaInventario.style.display = 'true';
+        textOrganiza.style.display = 'none';
+    });
+
+    btnPersonal.addEventListener('click', () => {
+        tablaPersonal.style.display = 'block';
+        tablaInventario.style.display = 'none';
+        tablaPersonal.style.display = 'true';
+        textOrganiza.style.display = 'none';
+
+
+    });
+});
+
+
     var texto = document.querySelector('.text-establecimiento');
     var contenido = texto.innerHTML;
     if (contenido.length > 20) {
-    texto.innerHTML = contenido.substring(0, 20) + '...';
+        texto.innerHTML = contenido.substring(0, 20) + '...';
     }
+
 
 </script>
 {% endblock %}

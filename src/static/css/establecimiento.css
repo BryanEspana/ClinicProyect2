@@ -1,0 +1,54 @@
+
+p{
+    padding: 0rem;
+    margin: 0rem;
+
+}
+.establecimientoTitulos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top, #6391c9, #2962a8);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+.establecimientoTitulos:hover {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.establecimientoTitulos p {
+    cursor: pointer;
+    margin: 0 20px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.establecimientoTitulos i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.establecimientoTitulos p:hover {
+    opacity: 0.8;
+}
+
+.establecimientoTitulos.hide {
+    animation-name: fadeOut;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+

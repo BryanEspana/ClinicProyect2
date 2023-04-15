@@ -58,21 +58,43 @@
               <td>Juan Pérez</td>
               <td>22</td>
               <td>+1 (555) 123-4567</td>
-              <td><a href="#" class="btn-info">Ver más</a></td>
+              <td><button class="btn-info" data-id="1" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>            
             </tr>
             <tr>
               <td>2</td>
               <td>Maria Rodríguez</td>
               <td>25</td>
               <td>+1 (555) 987-6543</td>
-              <td><a href="#" class="btn-info">Ver más</a></td>
+              <td><button class="btn-info" data-id="2" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>
             </tr>
             <!-- Agrega más filas aquí siguiendo el mismo formato -->
           </tbody>
         </table>
-        
       </div>
     </div>
+
+    <!-- Pestaña nueva de informacion del paciente-->
+    <div id="dialogo" class="dialogo">
+      <div class="dialogo-contenido">
+        <h2>Información del paciente</h2>
+        <div class="left">
+          <p><strong>Nombre:</strong> <span id="nombre">Bryan</span></p>
+          <p><strong>Masa Corporal:</strong> <span id="masa-corporal">132</span></p>
+          <p><strong>Altura:</strong> <span id="altura">1.70</span>m</p>
+          <p><strong>Adicciones:</strong> <span id="adicciones">Cocaina</span></p>
+          <p><strong>Teléfono:</strong> <span id="telefono">42669407</span></p>
+          <p><strong>Dirección:</strong> <span id="direccion">10av 10-78</span></p>
+          <p><strong>Enfermedades:</strong> <span id="enfermedades">Sifilis</span></p>
+          <p><strong>Historial:</strong> <span id="historial">preso por 4 años</span></p>
+        </div>
+        <button class="btn-cerrar" onclick="cerrarDialogo()">Cerrar</button>
+
+      </div>
+
+    </div>
+    
+    
+    
     
 <script>
     var texto = document.querySelector('.text-establecimiento');
@@ -81,5 +103,76 @@
     texto.innerHTML = contenido.substring(0, 20) + '...';
     }
 
+
+    function mostrarInfo() {
+    const dialogo = document.querySelector('#dialogo');
+    dialogo.innerHTML = 'Información del paciente'; // Aquí se coloca la información del paciente
+
+    // Abre el diálogo
+    dialogo.style.display = 'block';
+    dialogPolyfill.registerDialog(dialogo);
+
+    // Cierra el diálogo al hacer clic en el botón "cerrar"
+    const cerrarBtn = dialogo.querySelector('#cerrar-btn');
+    cerrarBtn.addEventListener('click', () => {
+        dialogo.style.display = 'none';
+    });
+}
+
+
+
+/*-------------------------------------------------informacion paciente--------------------------------------------*/
+function mostrarInfo(id) {
+    const infoPacientes = {
+      '1': {
+        nombre: 'Juan Pérez',
+        masaCorporal: 22,
+        altura: 1.70,
+        adicciones: 'Cocaina',
+        telefono: '+1 (555) 123-4567',
+        direccion: '10av 10-78',
+        enfermedades: 'Sifilis',
+        historial: 'preso por 4 años'
+      },
+      '2': {
+        nombre: 'Maria Rodríguez',
+        masaCorporal: 25,
+        altura: 1.65,
+        adicciones: 'Ninguna',
+        telefono: '+1 (555) 987-6543',
+        direccion: '5ta 8-23',
+        enfermedades: 'Ninguna',
+        historial: 'Sin antecedentes'
+      },
+    };
+
+    const paciente = infoPacientes[id];
+
+    if (paciente) {
+      document.getElementById("nombre").textContent = paciente.nombre;
+      document.getElementById("masa-corporal").textContent = paciente.masaCorporal;
+      document.getElementById("altura").textContent = paciente.altura;
+      document.getElementById("adicciones").textContent = paciente.adicciones;
+      document.getElementById("telefono").textContent = paciente.telefono;
+      document.getElementById("direccion").textContent = paciente.direccion;
+      document.getElementById("enfermedades").textContent = paciente.enfermedades;
+      document.getElementById("historial").textContent = paciente.historial;
+
+      // Mostrar el diálogo
+      document.getElementById("dialogo").style.display = "block";
+    } else {
+      console.error(`No se encontró información del paciente con ID ${id}`);
+    }
+  }
+
+   // Cerrar el diálogo al hacer clic fuera de él
+   document.getElementById("dialogo").addEventListener("click", function (event) {
+    if (event.target === document.getElementById("dialogo")) {
+      document.getElementById("dialogo").style.display = "none";
+    }
+  });
+  function cerrarDialogo() {
+    document.getElementById("dialogo").style.display = "none";
+  }
 </script>
 {% endblock %}
