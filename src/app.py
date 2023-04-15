@@ -19,6 +19,14 @@ def register():
 def inicio():
     return render_template('dashboard/dashboard.html')
 
+@app.route('/pacientes')
+def paciente():
+    return render_template('pacientes/paciente.html')
+
+@app.route('/medicamentos')
+def medicamentos():
+    return render_template('medicamentos/medicamento.html')
+
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run()

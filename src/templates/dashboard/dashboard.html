@@ -3,21 +3,90 @@
 {% block title %}Main{% endblock %}
 
 {% block customCSS %}
-<link rel="stylesheet" href="{{ url_for('static', filename='\dashboard\dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-<body class="center">
-    <div class="flex-row">
-        <div class="fondo">
-            <img src="static\img\logoBlanco.png" style="width: 100px;">
+<header class="header-top flex-row" style="background-color: #4b7fbd;">
+    <img class="logo-img" src="static\img\logoBlanco.png">
+    <div class=" flex-row encabezado ">
+        <!--Inicio-->
+        <a href=""><p class="padR4 hover-p padT1">Inicio</p></a>
+        <!--Establecimientos-->
+        <a href=""><p class="padR4 hover-p padT1">Establecimientos</p></a>
+        <!--Medicamentos-->
+        <a href=""><p class="padR4 hover-p padT1">Medicamentos</p></a>
+        <!--Pacientes-->
+        <a href=""><p class="padR4 hover-p padT1">Pacientes</p></a>
+
+        <!--Icono Usuario-->
+          <div class="profile-img-container">
+            <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
         </div>
-        <h1>asdfasd</h1>
+          
+    </div>
+
+</header>
+<body class="center">
+
+    <!--Pestaña info pacientes-->
+    <div class="center flex-row">
+        <!--IMagen GIF-->
+        <div class="container-img">
+            <img src="static/img/logo-img.gif" class="img-gif" alt="">
+        </div>
+        <!--TExto bienvenida-->
+        <div class="flex-column container-center">
+            <h1 class="size">Administra tu clinica</h1>
+            <p class="text-grey">¡Bienvenido a nuestro sistema de gestión de clínicas! Nuestra plataforma te permite acceder a tus datos médicos y programar citas con tus doctores de manera sencilla y segura.</p>
+            <a href="{{ url_for('paciente') }}">
+                <button class="button-pacientes">Ver pacientes</button>
+
+            </a>
+        </div>
 
     </div>
+    <div class="barras">.</div>
+
+    <div class="center flex-row">
+    <!--PEstaña info medicamentos-->
+    <div class="container-medic ">
+        <h1 class="size" style="font-size: 50px !important;">Visualiza tus medicamentos</h1>
+        <p class="text-grey padT1">¡Bienvenido! Aquí podrás encontrar información detallada sobre los medicamentos disponibles en tu clínica, desde su nombre y presentación, hasta sus dosis y posibles efectos secundarios.¡Tu salud es nuestra prioridad!</p>
+        <button class="button-style padT1">Ver medicamentos</button>
+    </div>
+    <!--IMagen GIF-->
+    <div class="container-img">
+        <img src="static/img/medicamentos.gif" class="img-medicamentos" alt="">
+    </div>
+    </div>
+    <!--Establecimiento Fixed-->
+    <div class="container-fixed">
+        <div class="title-fixed">
+            <h5>Establecimiento:</h5>
+        </div>
+        <div class="flex-row" style="cursor: pointer;">
+            <img src="static/img/location.png" class="icon-location" alt="">
+            <!--Colocar aqui el nombre de la empresa-->
+            <p class="text-establecimiento">Clinica Medica Ramirez</p>
+        </div>
+    </div>
 </body>
+
+<script>
+    var texto = document.querySelector('.text-establecimiento');
+    var contenido = texto.innerHTML;
+    if (contenido.length > 20) {
+    texto.innerHTML = contenido.substring(0, 20) + '...';
+    }
+
+</script>
 {% endblock %}
