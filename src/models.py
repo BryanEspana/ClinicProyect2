@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 class Paciente(db.Model):
     id_paciente = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), nullable=False)
@@ -29,6 +30,7 @@ class Enfermedad(db.Model):
 class UtencilioMed(db.Model):
     id_utencilio = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(30), nullable=False)
+    cant_optima = db.Column(db.Integer, nullable=False)
 
 
 class Lugar(db.Model):
@@ -64,12 +66,3 @@ class Historial(db.Model):
     id_medico = db.Column(db.Integer, db.ForeignKey('medico.id_medico'), nullable=False)
     id_enfermedad = db.Column(db.Integer, db.ForeignKey('enfermedad.id_enfermedad'), nullable=False)
 
-class Visita(db.Model):
-    id_visita = db.Column(db.Integer, primary_key=True)
-    id_paciente = db.Column(db.Integer, db.ForeignKey('paciente.id_paciente'), nullable=False)
-    id_medico = db.Column(db.Integer, db.ForeignKey('medico.id_medico'), nullable=False)
-    id_lugar = db.Column(db.Integer, db.ForeignKey('lugar.id_lugar'), nullable=False)
-
-    paciente = db.relationship('Paciente', backref='visitas')
-    medico = db.relationship('Medico', backref='visitas')
-    lugar = db.relationship('Lugar', backref='visitas')
