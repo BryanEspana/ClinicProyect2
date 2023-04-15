@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Main{% endblock %}
+{% block title %}Inicio - MedikData{% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
@@ -19,13 +19,13 @@
     <img class="logo-img" src="static\img\logoBlanco.png">
     <div class=" flex-row encabezado ">
         <!--Inicio-->
-        <a href=""><p class="padR4 hover-p padT1">Inicio</p></a>
+        <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
         <!--Establecimientos-->
-        <a href=""><p class="padR4 hover-p padT1">Establecimientos</p></a>
+        <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
         <!--Medicamentos-->
-        <a href=""><p class="padR4 hover-p padT1">Medicamentos</p></a>
+        <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
         <!--Pacientes-->
-        <a href=""><p class="padR4 hover-p padT1">Pacientes</p></a>
+        <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
 
         <!--Icono Usuario-->
           <div class="profile-img-container">
@@ -49,7 +49,6 @@
             <p class="text-grey">¡Bienvenido a nuestro sistema de gestión de clínicas! Nuestra plataforma te permite acceder a tus datos médicos y programar citas con tus doctores de manera sencilla y segura.</p>
             <a href="{{ url_for('paciente') }}">
                 <button class="button-pacientes">Ver pacientes</button>
-
             </a>
         </div>
 
@@ -61,7 +60,9 @@
     <div class="container-medic ">
         <h1 class="size" style="font-size: 50px !important;">Visualiza tus medicamentos</h1>
         <p class="text-grey padT1">¡Bienvenido! Aquí podrás encontrar información detallada sobre los medicamentos disponibles en tu clínica, desde su nombre y presentación, hasta sus dosis y posibles efectos secundarios.¡Tu salud es nuestra prioridad!</p>
-        <button class="button-style padT1">Ver medicamentos</button>
+        <a href="{{ url_for('medicamentos') }}">
+            <button class="button-style padT1">Ver medicamentos</button>
+        </a>
     </div>
     <!--IMagen GIF-->
     <div class="container-img">
@@ -73,11 +74,13 @@
         <div class="title-fixed">
             <h5>Establecimiento:</h5>
         </div>
-        <div class="flex-row" style="cursor: pointer;">
-            <img src="static/img/location.png" class="icon-location" alt="">
-            <!--Colocar aqui el nombre de la empresa-->
-            <p class="text-establecimiento">Clinica Medica Ramirez</p>
-        </div>
+        <a href="{{ url_for('establecimientos') }}">
+            <div class="flex-row" style="cursor: pointer;">
+                <img src="static/img/location.png" class="icon-location" alt="">
+                <!--Colocar aqui el nombre de la empresa-->
+                <p class="text-establecimiento">Clinica Medica Ramirez</p>
+            </div>
+        </a>
     </div>
 </body>
 

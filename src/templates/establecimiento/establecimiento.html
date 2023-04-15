@@ -19,13 +19,13 @@
     <img class="logo-img" src="static\img\logoBlanco.png">
     <div class=" flex-row encabezado ">
         <!--Inicio-->
-        <a href=""><p class="padR4 hover-p padT1">Inicio</p></a>
+        <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
         <!--Establecimientos-->
-        <a href=""><p class="padR4 hover-p padT1">Establecimientos</p></a>
+        <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
         <!--Medicamentos-->
-        <a href=""><p class="padR4 hover-p padT1">Medicamentos</p></a>
+        <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
         <!--Pacientes-->
-        <a href=""><p class="padR4 hover-p padT1">Pacientes</p></a>
+        <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
 
         <!--Icono Usuario-->
           <div class="profile-img-container">

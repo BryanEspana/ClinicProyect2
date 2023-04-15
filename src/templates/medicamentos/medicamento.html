@@ -18,29 +18,73 @@
 <header class="header-top flex-row" style="background-color: #4b7fbd;">
     <img class="logo-img" src="static\img\logoBlanco.png">
     <div class=" flex-row encabezado ">
-        <!--Inicio-->
-        <a href=""><p class="padR4 hover-p padT1">Inicio</p></a>
-        <!--Establecimientos-->
-        <a href=""><p class="padR4 hover-p padT1">Establecimientos</p></a>
-        <!--Medicamentos-->
-        <a href=""><p class="padR4 hover-p padT1">Medicamentos</p></a>
-        <!--Pacientes-->
-        <a href=""><p class="padR4 hover-p padT1">Pacientes</p></a>
+      <!--Inicio-->
+      <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
+      <!--Establecimientos-->
+      <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
+      <!--Medicamentos-->
+      <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
+      <!--Pacientes-->
+      <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
 
-        <!--Icono Usuario-->
-          <div class="profile-img-container">
-            <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
-        </div>
-          
-    </div>
+      <!--Icono Usuario-->
+        <div class="profile-img-container">
+          <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
+      </div>
+        
+  </div>
 
 </header>
 <body class="center">
 
     <!--Pestaña info pacientes-->
-    <div class="center flex-row">
+    <div class="center flex-column">
         
         <h3 class="titulo">Medicos:</h3>
+        <div class="margin">
+        <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Pedir más</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Paracetamol</td>
+                <td>100</td>
+                <td><a href="#" class="btn-info">Pedir más</a></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Ibuprofeno</td>
+                <td>75</td>
+                <td><a href="#" class="btn-info">Pedir más</a></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Amoxicilina</td>
+                <td>50</td>
+                <td><a href="#" class="btn-info">Pedir más</a></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Losartán</td>
+                <td>30</td>
+                <td><a href="#" class="btn-info">Pedir más</a></td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Metformina</td>
+                <td>120</td>
+                <td><a href="#" class="btn-info">Pedir más</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
     
 <script>

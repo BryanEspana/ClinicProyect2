@@ -27,6 +27,10 @@ def paciente():
 def medicamentos():
     return render_template('medicamentos/medicamento.html')
 
+@app.route('/establecimiento')
+def establecimientos():
+    return render_template('establecimiento/establecimiento.html')
+
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run()
