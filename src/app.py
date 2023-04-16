@@ -1,12 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from config import config
-from flask import request, redirect, url_for, flash, session
 from werkzeug.security import check_password_hash
 from models import db, Usuario, Paciente, Medico, Enfermedad, UtencilioMed, Lugar, Usuario, Inventario, Historial
 
 
 app=Flask(__name__)
 db.init_app(app)
+
 
 @app.route('/')
 def index():
