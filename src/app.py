@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash
 from sqlalchemy.sql import text
 from models import db, Usuario, Paciente, Medico, Enfermedad, UtencilioMed, Lugar, Usuario, Inventario, Historial
 
-
+# Commit para backend
 app=Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
