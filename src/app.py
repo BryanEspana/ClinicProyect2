@@ -13,8 +13,30 @@ id_usuarioActual = 0
 with app.app_context():
     db.create_all()
 
-@app.route('/')
+@app.route('/', methods=('GET', 'POST'))
 def index():
+    if request.method == 'POST':
+        usuario = request.form['username']
+        password = request.form['password']
+        confirmacion = request.form['passwordConfirm']
+        establecimiento = request.form['lugares']
+        numero = request.form['numero']
+        colegiado = request.form['colegiado']
+        direccion = request.form['direccion']
+        especialidad = request.form['especialidad']
+        id = db.session.execute(text("SELECT id_medico FROM medico ORDER BY id_medico DESC LIMIT 1")).fetchone()[0] + 1
+
+        if password != confirmacion:
+            flash('La contraseña y la confirmación no coinciden')
+            return redirect(url_for('index'))
+        else:
+            queryMed = text("INSERT INTO medico VALUES (:id, :nombre, :direccion, :telefono, :num_colegiado, :especialidad, :id_lugar)")
+            queryUser = text("INSERT INTO usuario VALUES (:id, :usuario, :password)")
+            db.session.execute(queryMed, {'id': id, 'nombre': usuario, 'direccion': direccion, 'telefono': numero, 'num_colegiado': colegiado, 'especialidad': especialidad, 'id_lugar': establecimiento})
+            db.session.execute(queryUser, {'id': id, 'usuario': usuario, 'password': password})
+            db.session.commit()
+
+
     return render_template('auth/main.html')
 
 @app.route('/logout')
@@ -35,7 +57,10 @@ def dashboard():
 
 @app.route('/auth/register')
 def register():
-    return render_template('auth/register.html')
+    query = text("SELECT * FROM lugar")
+    result = db.session.execute(query).fetchall()
+    return render_template('auth/register.html', lugares=result)
+
 @app.route('/inicio', methods=('GET', 'POST'))
 def inicio():
     if request.method == 'POST':

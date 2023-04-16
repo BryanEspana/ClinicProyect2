@@ -14,12 +14,12 @@
 
 {% block body %}
 
-<body class="imagenfondo"">
+<body class="imagenfondo">
   <div class="container contenido">
     <div class="form-container-register "  style="overflow: auto; height: 650px;">
         <h2>¡Crea una cuenta!</h2>
 
-      <form action="">
+      <form action="{{ url_for('index') }}" method="post">
         <!--Usuario-->
         <label for="username" class="titleSelect">Usuario:</label>
         <input type="text" id="username" name="username" required>
@@ -30,14 +30,14 @@
   
         <!--Confirmar contraseña-->
         <label for="confirm-password" class="titleSelect">Confirmar contraseña:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="passwordConfirm" required>
           
         <!--Establecimiento-->
         <label for="establecimiento" class="titleSelect">Selecciona un establecimiento:</label>
-            <select id="establecimiento" name="establecimiento" class="popupSelect">
-            <option value="hospital">Hospital</option>
-            <option value="centro-salud">Centro de Salud</option>
-            <option value="clinica">Clínica</option>
+            <select id="establecimiento" name="lugares" class="popupSelect">
+              {% for lugar in lugares %}
+                <option value="{{ lugar.id_lugar }}">{{ lugar.nombre }}</option>
+              {% endfor %}
             </select>
 
         <!--Telefono y numero de colegiado-->
@@ -49,7 +49,7 @@
 
             <div>
                 <label for="colegiado" class="titleSelect">Colegiado:</label>
-                <input type="text" required>
+                <input type="text" name="colegiado" required >
             </div>
 
 
@@ -57,13 +57,13 @@
 
         <!--Dirección-->
         <label for="direction" class="titleSelect">Dirección:</label>
-        <input type="text"required>
+        <input type="text" name="direccion" required>
 
         <!--Especialidad-->
         <label for="especialidad" class="titleSelect">Especialidad:</label>
-        <input type="text" required>
-
-        <button class="button-style">Iniciar Sesión</button>
+        <input type="text" name="especialidad" required>
+        <input type="submit" value="Registrarse" class="button-style buttonLogin">
+        <!--<button class="button-style">Iniciar Sesión</button>-->
       </form>
       <div class="flex-row center">
         <p>¿Si tienes una cuenta?</p>
