@@ -1,6 +1,5 @@
 class DevelopmentConfig():
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:190319@localhost/proyect2'
     endpoint = 'proyecto2-db1.cd5zvwqtmiac.us-east-2.rds.amazonaws.com'
     username = 'postgres'
     password = 'BryanJavierSebas'

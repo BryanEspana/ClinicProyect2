@@ -19,7 +19,7 @@
     <div class="form-container">
       <img class="logo-img centerPadMar" src="/static/img/logo.png">
 
-      <form action="">
+      <form action="{{ url_for('inicio') }}" method="post">
         <!--Usuario-->
         <label for="username">Usuario:</label>
         <input type="text" id="username" name="username" required>
@@ -27,12 +27,11 @@
         <!--Contraseña-->
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required>
-          
-        <button class="button-style">Iniciar Sesión</button>
+        <input class= "buttonLogin button-style"  type="submit" value="Iniciar Sesion">
         
-        <a href="{{url_for('inicio')}}">
-        Demo dashboard
-        </a>
+        {% if message %}
+          <p class="error-message">{{ message }}</p>
+        {% endif %}
       </form>
       <div class="flex-row center">
         <p>¿No tienes cuenta?</p>
