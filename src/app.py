@@ -8,6 +8,7 @@ from models import db, Usuario, Paciente, Medico, Enfermedad, UtencilioMed, Luga
 app=Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+id_usuarioActual = 0
 
 with app.app_context():
     db.create_all()
@@ -43,7 +44,7 @@ def inicio():
         password = request.form['password']
 
         # ejecuta la consulta SQL en bruto
-        query = text("SELECT usuario, password FROM usuario WHERE usuario = :usuario AND password = :password")
+        query = text("SELECT id_medico ,usuario, password FROM usuario WHERE usuario = :usuario AND password = :password")
         result = db.session.execute(query, {'usuario': usuario, 'password': password}).fetchone()
 
         if result is None:
@@ -52,6 +53,8 @@ def inicio():
             return redirect(url_for('login'))
         else:
             # si la autenticación es exitosa, inicia sesión y redirecciona al dashboard
+            global id_usuarioActual
+            id_usuarioActual = result[0]  # asignar el valor de la consulta a la variable global
             return render_template('dashboard/dashboard.html')
 
     return render_template('dashboard/dashboard.html')
