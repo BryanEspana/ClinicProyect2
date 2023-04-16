@@ -41,6 +41,8 @@ def index():
 
 @app.route('/logout')
 def logout():
+    global id_usuarioActual
+    id_usuarioActual = 0
     # Elimina la información del usuario de la sesión
     session.pop('user_id', None)
     # Redirecciona al usuario a la página de inicio de sesión
