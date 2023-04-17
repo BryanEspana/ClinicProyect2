@@ -9,6 +9,7 @@ app=Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 id_usuarioActual = 0
+id_pacienteActual = 0
 
 with app.app_context():
     db.create_all()
@@ -35,7 +36,6 @@ def index():
             db.session.execute(queryMed, {'id': id, 'nombre': usuario, 'direccion': direccion, 'telefono': numero, 'num_colegiado': colegiado, 'especialidad': especialidad, 'id_lugar': establecimiento})
             db.session.execute(queryUser, {'id': id, 'usuario': usuario, 'password': password})
             db.session.commit()
-
 
     return render_template('auth/main.html')
 
@@ -88,7 +88,59 @@ def inicio():
 
 @app.route('/pacientes')
 def paciente():
-    return render_template('pacientes/paciente.html')
+    query = text("""SELECt * FROM paciente""")
+    result = db.session.execute(query)
+    columns = result.keys()
+    result = result.fetchall()
+
+    queryInfoEsp = text("""SELECT p.id_paciente, p.nombre, p.masacorporal,p.altura,p.adicciones,p.telefono,p.direccion,
+                                h.herencia, e.nombre, h.tratamiento, m.nombre
+                            FROM historial h
+                            JOIN paciente p ON h.id_paciente = p.id_paciente
+                            JOIN medico m ON h.id_medico = m.id_medico
+                            JOIN enfermedad e ON h.id_enfermedad = e.id_enfermedad""")
+    resultInfoEsp = db.session.execute(queryInfoEsp)
+    pacientes = []
+    paciente = {
+        'id_paciente': 0, 
+        'nombre': "", 
+        'masacorporal': 0,
+        'altura': 0,
+        'adicciones': "",
+        'telefono' : "",
+        'direccion' : "",
+        'herencia': [],
+        'Enfermedades': [], 
+        'tratamiento' : [],
+        'medico' : []
+    }
+    for row in resultInfoEsp:
+        if row[0] != paciente['id_paciente']:
+            # si la fila corresponde a un nuevo paciente, se agrega el paciente anterior a la lista
+            pacientes.append(paciente)
+            # se crea un nuevo diccionario para el nuevo paciente
+            paciente = {
+                'id_paciente': row[0], 
+                'nombre': row[1], 
+                'masacorporal': row[2],
+                'altura': row[3],
+                'adicciones': row[4],
+                'telefono' : row[5],
+                'direccion' : row[6],
+                'herencia': [],
+                'Enfermedades': [], 
+                'tratamiento' : [],
+                'medico' : []
+            }
+        # se agregan los valores de herencia y tratamiento a las listas correspondientes en el diccionario
+        paciente['herencia'].append(row[7])
+        paciente['Enfermedades'].append(row[8])
+        paciente['tratamiento'].append(row[9])
+        paciente['medico'].append(row[10])
+        # se agrega el último paciente a la lista
+        pacientes.append(paciente)
+
+    return render_template('pacientes/paciente.html', pacientes=result, columns=columns, pacientesInfo=pacientes)
 
 @app.route('/medicamentos')
 def medicamentos():

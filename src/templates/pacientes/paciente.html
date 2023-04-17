@@ -45,28 +45,24 @@
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Masa Corporal</th>
-              <th>Teléfono</th>
-              <th>Más Información</th>
+              {% for i in columns %}
+                <th>{{ i }}</th>
+              {% endfor %}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Juan Pérez</td>
-              <td>22</td>
-              <td>+1 (555) 123-4567</td>
-              <td><button class="btn-info" data-id="1" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>            
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Maria Rodríguez</td>
-              <td>25</td>
-              <td>+1 (555) 987-6543</td>
-              <td><button class="btn-info" data-id="2" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>
-            </tr>
+            {% for paciente in pacientes %}
+              <tr>
+                <td>{{ paciente.id_paciente }}</td>
+                <td>{{ paciente.nombre }}</td>
+                <td>{{ paciente.masacorporal }}</td>
+                <td>{{ paciente.altura }}</td>
+                <td>{{ paciente.adicciones }}</td>
+                <td>{{ paciente.telefono }}</td>
+                <td>{{ paciente.direccion }}</td>
+                <td><button class="btn-info" data-id="{{ paciente.id_paciente}}" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>            
+              </tr>
+            {% endfor%}
             <!-- Agrega más filas aquí siguiendo el mismo formato -->
           </tbody>
         </table>
@@ -84,8 +80,10 @@
           <p><strong>Adicciones:</strong> <span id="adicciones">Cocaina</span></p>
           <p><strong>Teléfono:</strong> <span id="telefono">42669407</span></p>
           <p><strong>Dirección:</strong> <span id="direccion">10av 10-78</span></p>
+          <p><strong>Herencias:</strong><span id="herencias">solo es prueba</span></p>
           <p><strong>Enfermedades:</strong> <span id="enfermedades">Sifilis</span></p>
-          <p><strong>Historial:</strong> <span id="historial">preso por 4 años</span></p>
+          <p><strong>Tratamiento:</strong> <span id="tratamiento">preso por 4 años</span></p>
+          <p><strong>Medicos:</strong><span id="medico">todos son malos</span></p>
         </div>
         <button class="btn-cerrar" onclick="cerrarDialogo()">Cerrar</button>
 
@@ -97,11 +95,11 @@
     
     
 <script>
-    var texto = document.querySelector('.text-establecimiento');
-    var contenido = texto.innerHTML;
-    if (contenido.length > 20) {
+    //var texto = document.querySelector('.text-establecimiento');
+    //var contenido = texto.innerHTML;
+    /*1if (contenido.length > 20) {
     texto.innerHTML = contenido.substring(0, 20) + '...';
-    }
+    }*/
 
 
     function mostrarInfo() {
@@ -123,40 +121,25 @@
 
 /*-------------------------------------------------informacion paciente--------------------------------------------*/
 function mostrarInfo(id) {
-    const infoPacientes = {
-      '1': {
-        nombre: 'Juan Pérez',
-        masaCorporal: 22,
-        altura: 1.70,
-        adicciones: 'Cocaina',
-        telefono: '+1 (555) 123-4567',
-        direccion: '10av 10-78',
-        enfermedades: 'Sifilis',
-        historial: 'preso por 4 años'
-      },
-      '2': {
-        nombre: 'Maria Rodríguez',
-        masaCorporal: 25,
-        altura: 1.65,
-        adicciones: 'Ninguna',
-        telefono: '+1 (555) 987-6543',
-        direccion: '5ta 8-23',
-        enfermedades: 'Ninguna',
-        historial: 'Sin antecedentes'
-      },
-    };
+    var infoPacientes = {{ pacientesInfo|tojson }};
+    console.log(infoPacientes[2])
 
     const paciente = infoPacientes[id];
 
     if (paciente) {
       document.getElementById("nombre").textContent = paciente.nombre;
-      document.getElementById("masa-corporal").textContent = paciente.masaCorporal;
+      document.getElementById("masa-corporal").textContent = paciente.masacorporal;
       document.getElementById("altura").textContent = paciente.altura;
       document.getElementById("adicciones").textContent = paciente.adicciones;
       document.getElementById("telefono").textContent = paciente.telefono;
-      document.getElementById("direccion").textContent = paciente.direccion;
-      document.getElementById("enfermedades").textContent = paciente.enfermedades;
-      document.getElementById("historial").textContent = paciente.historial;
+      const herencias = paciente.herencias.join(', '); // une los elementos de la lista con una coma como separador
+      document.getElementById("herencias").textContent = herencias;
+      const enfermedades = paciente.enfermedades.join(', '); // une los elementos de la lista con una coma como separador
+      document.getElementById("enfermedades").textContent = enfermedades;
+      const tratamiento = paciente.tratamiento.join(', '); // une los elementos de la lista con una coma como separador
+      document.getElementById("tratamiento").textContent = tratamiento;
+      const medico = paciente.medicos.join(', '); // une los elementos de la lista con una coma como separador
+      document.getElementById("medico").textContent = medico;
 
       // Mostrar el diálogo
       document.getElementById("dialogo").style.display = "block";
