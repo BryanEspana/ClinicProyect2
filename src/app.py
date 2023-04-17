@@ -333,13 +333,53 @@ def estadisticas():
  
 
 #-----------------------------------------Agregar a Historial----------------------------------------
-@app.route('/AgregarAHistorial')
+@app.route('/AgregarAHistorial', methods=['GET', 'POST'])
 def AddHistorial():
-    return render_template('medicamentos/AddHistorial.html')
+    establecimientos = text("""SELECT * FROM lugar;""")
+    resultEstablecimientos = db.session.execute(establecimientos).fetchall()
+    pacientes = text("""SELECT * FROM paciente;""")
+    resultPacientes = db.session.execute(pacientes).fetchall()
+    enferm = text("""SELECT * FROM enfermedad;""")
+    resultEnferm = db.session.execute(enferm).fetchall()
+    medico = text("""SELECT * FROM medico;""")
+    resultMedico = db.session.execute(medico).fetchall()
+    if request.method == 'POST':
+        newPaciente = request.form['paciente']
+        newMedico = request.form['medico']
+        newEnfermedad = request.form['enfermedad']
+        newLugar = request.form['lugar']
+        newHerencia = request.form['herencia']
+        newTratamiento = request.form['tratamiento']
+        newEvolucion = request.form['evolucion']
+        newEstado = request.form['estado']
+        newComentario = request.form['comentario']
+        idHistorial = db.session.execute(text("SELECT id_historial FROM historial ORDER BY id_historial DESC LIMIT 1;")).fetchone()[0] + 1
+        query = text("""
+                        INSERT INTO historial 
+                        VALUES (:id_historial,current_date,:herencia,:tratamiento,:evolucion,:estado,:comentario,:id_lugar,:id_paciente,:id_medico,:id_enfermedad);
+        """)
+        
+        db.session.execute(query, {'id_historial': idHistorial, 'herencia': newHerencia, 'tratamiento': newTratamiento, 'evolucion': newEvolucion, 'estado': newEstado, 'comentario':newComentario,'id_lugar': newLugar, 'id_paciente': newPaciente, 'id_medico': newMedico, 'id_enfermedad': newEnfermedad})
+        db.session.commit()
+        return render_template('medicamentos/AddHistorial.html', lugares = resultEstablecimientos, pacientes = resultPacientes, enfermedades = resultEnferm, medicos=resultMedico)
+
+    return render_template('medicamentos/AddHistorial.html', lugares = resultEstablecimientos, pacientes = resultPacientes, enfermedades = resultEnferm, medicos=resultMedico)
 
 #-----------------------------------------Agregar a Paciente----------------------------------------
-@app.route('/AgregarPaciente')
+@app.route('/AgregarPaciente', methods=['GET', 'POST'])
 def AddPaciente():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        masa = request.form['masa']
+        altura = request.form['altura']
+        adiccion = request.form['adicciones']
+        telefono = request.form['tel']
+        direccion = request.form['direccion']
+        idPaciente = db.session.execute(text("SELECT id_paciente FROM paciente ORDER BY id_paciente DESC LIMIT 1;")).fetchone()[0] + 1
+        query = text("""INSERT INTO paciente VALUES (:id_paciente, :nombre, :masa, :altura, :adicciones, :telefono, :direccion);""")
+        db.session.execute(query, {'id_paciente':idPaciente,'nombre': nombre, 'masa': masa, 'altura': altura, 'adicciones': adiccion, 'telefono': telefono, 'direccion': direccion})
+        db.session.commit()
+        return render_template('pacientes/AddPaciente.html')
     return render_template('pacientes/AddPaciente.html')
 
 

@@ -46,22 +46,20 @@
         <div class="margin " >
             <hr>
             <div class="infoPaciente">
-                <form action="{{ url_for('agregarInventario') }}" method="post" style="display: flex; flex-direction: column;">
+                <form action="{{ url_for('AddPaciente') }}" method="post" style="display: flex; flex-direction: column;">
                     <div class="form-grid">
-                        <label class="text-inv" style="padding: 0.5rem;"> ID:  </label>
-                        <input type="text" class="inputPacientes" name="cantidad" >
                         <label class="text-inv" style="padding: 0.5rem;"> Nombre:</label>
-                        <input type="text" class="inputPacientes" name="cantidad" >
+                        <input type="text" class="inputPacientes" name="nombre" >
                         <label class="text-inv" style="padding: 0.5rem;"> Masa Corporal:</label>
-                        <input type="text" class="inputPacientes" name="cantidad">
+                        <input type="text" class="inputPacientes" name="masa">
                         <label class="text-inv" style="padding: 0.5rem;"> Altura:</label>
-                        <input type="text" class="inputPacientes" name="cantidad">
+                        <input type="text" class="inputPacientes" name="altura">
                         <label class="text-inv"  style="padding: 0.5rem;"> Adicciones:</label>
-                        <input type="text" class="inputPacientes" name="cantidad">
+                        <input type="text" class="inputPacientes" name="adicciones">
                         <label class="text-inv"  style="padding: 0.5rem;"> Telefono:</label>
-                        <input type="number" class="inputPacientes" name="cantidad">
+                        <input type="number" class="inputPacientes" name="tel">
                         <label class="text-inv" style="padding: 0.5rem;"> Dirección:</label>
-                        <input type="text" class="inputPacientes " name="cantidad">
+                        <input type="text" class="inputPacientes " name="direccion">
                     </div>
 
                     </div>

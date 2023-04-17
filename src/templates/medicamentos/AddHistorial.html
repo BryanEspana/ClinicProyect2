@@ -46,31 +46,43 @@
         <div class="margin " >
             <hr>
             <div class="infoPaciente">
-                <form action="{{ url_for('agregarInventario') }}" method="post" style="display: flex; flex-direction: column;">
+                <form action="{{ url_for('AddHistorial') }}" method="post" style="display: flex; flex-direction: column;">
                     <label class="text-inv">Establecimiento:</label>
-                    <select class="inputPacientes" name="utencilio" style="width: 100%;">
-                        {% for i in utencilios %}
-                            <option value="{{i.id_utencilio}}">{{i.nombre}}</option>
+                    <select class="inputPacientes" name="lugar" style="width: 100%;">
+                        {% for lugar in lugares %}
+                            <option value="{{lugar.id_lugar}}">{{lugar.nombre}}</option>
                         {% endfor %}
                     </select>
                     <hr>
                     <div class="form-grid">
                             <label class="text-inv" style="padding: 0.5rem;"> Paciente:  </label>
-                            <input type="text" class="inputPacientes" name="cantidad" >
+                            <select name="paciente" class="inputPacientes">
+                                {% for paciente in pacientes %}
+                                    <option value="{{paciente.id_paciente}}">{{paciente.nombre}}</option>
+                                {% endfor %}
+                            </select>
                             <label class="text-inv" style="padding: 0.5rem;"> Medico:</label>
-                            <input type="text" class="inputPacientes" name="cantidad" >
+                            <select name="medico" class="inputPacientes">
+                                {% for medico in medicos %}
+                                    <option value="{{medico.id_medico}}">{{medico.nombre}}</option>
+                                {% endfor %}
+                            </select>
                             <label class="text-inv" style="padding: 0.5rem;"> Enfermedad:</label>
-                            <input type="text" class="inputPacientes" name="cantidad">
+                            <select name="enfermedad" class="inputPacientes">
+                                {% for enfermedad in enfermedades %}
+                                    <option value="{{ enfermedad.id_enfermedad }}">{{ enfermedad.nombre }}</option>
+                                {% endfor %}
+                            </select>
                             <label class="text-inv" style="padding: 0.5rem;"> Herencia:</label>
-                            <input type="text" class="inputPacientes" name="cantidad">
+                            <input type="text" class="inputPacientes" name="herencia">
                             <label class="text-inv"  style="padding: 0.5rem;"> Tratamiento:</label>
-                            <input type="text" class="inputPacientes" name="cantidad">
+                            <input type="text" class="inputPacientes" name="tratamiento">
                             <label class="text-inv"  style="padding: 0.5rem;"> Evolución:</label>
-                            <input type="text" class="inputPacientes" name="cantidad">
+                            <input type="text" class="inputPacientes" name="evolucion">
                             <label class="text-inv" style="padding: 0.5rem;"> Estado:</label>
-                            <input type="text" class="inputPacientes" name="cantidad">
+                            <input type="text" class="inputPacientes" name="estado">
                             <label class="text-inv" style="padding: 0.5rem;"> Comentario</label>
-                            <input type="text" name="expiracion" class="inputPacientes">
+                            <input type="text" name="comentario" class="inputPacientes">
                     </div>
 
                     </div>
