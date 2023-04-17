@@ -14,6 +14,8 @@ id_pacienteActual = 0
 with app.app_context():
     db.create_all()
 
+
+#-----------------------------------------Register/Crear usuario-----------------------------------------
 @app.route('/', methods=('GET', 'POST'))
 def index():
     if request.method == 'POST':
@@ -39,6 +41,14 @@ def index():
 
     return render_template('auth/main.html')
 
+@app.route('/auth/register')
+def register():
+    query = text("SELECT * FROM lugar")
+    result = db.session.execute(query).fetchall()
+    return render_template('auth/register.html', lugares=result)
+
+
+#-----------------------------------------LogOut/Login-----------------------------------------------------------------------
 @app.route('/logout')
 def logout():
     global id_usuarioActual
@@ -57,11 +67,6 @@ def login():
 def dashboard():
     return render_template('dashboard/dashboard.html')
 
-@app.route('/auth/register')
-def register():
-    query = text("SELECT * FROM lugar")
-    result = db.session.execute(query).fetchall()
-    return render_template('auth/register.html', lugares=result)
 
 @app.route('/inicio', methods=('GET', 'POST'))
 def inicio():
@@ -86,6 +91,7 @@ def inicio():
 
     return render_template('dashboard/dashboard.html')
 
+#-----------------------------------------Pacientes-----------------------------------------------------------------------------------
 @app.route('/pacientes')
 def paciente():
     query = text("""SELECt * FROM paciente""")
@@ -142,12 +148,38 @@ def paciente():
 
     return render_template('pacientes/paciente.html', pacientes=result, columns=columns, pacientesInfo=pacientes)
 
+
+
+@app.route('/informacionPaciente', methods=['POST'])
+def infoPaciente():
+    id_paciente = request.form['id_paciente']
+    query = text("""SELECT nombre, masacorporal, altura, adicciones, telefono, direccion FROM paciente WHERE id_paciente = :id_paciente""")
+    query2 = text("""SELECT h.herencia, h.tratamiento, e.nombre AS Enfermedades, m.nombre AS Medico FROM historial h JOIN enfermedad e ON h.id_enfermedad = e.id_enfermedad JOIN medico m ON h.id_medico = m.id_medico WHERE id_paciente = :id_paciente""")
+    result1 = db.session.execute(query, {'id_paciente': id_paciente}).fetchone()
+    result2 = db.session.execute(query2, {'id_paciente': id_paciente}).fetchall()
+    herencia = []
+    tratamiento = []
+    enfermedad = []
+    medico = []
+
+    for i in range(len(result2)):
+        herencia.append(result2[i][0])
+        tratamiento.append(result2[i][1])
+        enfermedad.append(result2[i][2])
+        medico.append(result2[i][3])
+
+    return render_template('pacientes/paciente-individual.html', id_paciente=id_paciente, paciente=result1, herencia=herencia, tratamiento=tratamiento, enfermedad=enfermedad, medico=medico)
+#-----------------------------------------Medicamentos-----------------------------------------
 @app.route('/medicamentos')
 def medicamentos():
     return render_template('medicamentos/medicamento.html')
 
+#-----------------------------------------Establecimientos-----------------------------------------
 @app.route('/establecimiento')
 def establecimientos():
+    query1 = text("""SELECT * FROM usuario""")
+    query2 = text("""SELECT * FROM medico""")
+    query3 = text("""SELECT * FROM paciente""")
     return render_template('establecimiento/establecimiento.html')
 
 

@@ -110,6 +110,19 @@ p{
 }
 .titulo{
     padding-top: 2rem;
+    padding-left: 1rem;
+}
+
+
+.inputInfo{
+  width: 100%;
+  padding: 0.2rem;
+  border: 1px solid #4987ba;
+  border-radius: 0.3rem;
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+  background-color: #f2f2f2;
+
 }
 
 /*Tablas*/
@@ -197,3 +210,36 @@ p{
     text-align: left;
     
   }
+
+  .infoPaciente{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 1rem;
+  }
+  .inputEdit{
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    padding: 0.5rem;
+    color: white !important;
+    background-color:#4987ba;
+    border: none;
+    border-radius: 0.3rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+.inputPacientes{
+  cursor: pointer;
+  text-align: left;
+  width: 50%;
+  padding: 0.3rem;
+  color: rgb(0, 0, 0) !important;
+  background-color:#dadada;
+  border: none;
+  border-radius: 0.3rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding-left: 1rem;
+}

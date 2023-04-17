@@ -46,8 +46,9 @@
         <h3 class="titulo">Establecimiento:</h3>
 
         <div class="flex-row establecimientoTitulos">
-            <p class="padR4 inventario" id="btn-inventario">Inventario</p>
-            <p class="personal" id="btn-personal">Personal</p>
+            <p class=" inventario" id="btn-inventario">Inventario</p>
+            <p class="personal pad" id="btn-personal">Personal</p>
+            <p class="personal " id="btn-usuarios">Usuarios</p>
         </div>
 
         <div class="padT3 Organiza-establ" style=" display: true;">
@@ -87,7 +88,7 @@
 
           <!--Tabla de personal-->
           <div class="margin tabla-personal"  style="display: none;">
-            <table>
+            <!--<table>
                 <tr>
                     {% for columna in columnas%}
                       <th>{{ columna }}</th>
@@ -98,8 +99,70 @@
                     <td></td>
                   </tr>
                 {% endfor %}
+            </table>-->
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Masa Corporal</th>
+                  <th>Teléfono</th>
+                  <th>Más asdfds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Juan Pérez</td>
+                  <td>22</td>
+                  <td>+1 (555) 123-4567</td>
+                  <td><a href="#" class="btn-info">Ver más</a></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Maria Rodríguez</td>
+                  <td>25</td>
+                  <td>+1 (555) 987-6543</td>
+                  <td><a href="#" class="btn-info">Ver más</a></td>
+                </tr>
+                <!-- Agrega más filas aquí siguiendo el mismo formato -->
+              </tbody>
             </table>
           </div>
+
+        <!--Tabla de Usuarios-->
+        <div class="margin tabla-usuarios"  style="display: none;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Masa Corporal</th>
+                <th>Teléfono</th>
+                <th>Más Información</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Juan Pérez</td>
+                <td>22</td>
+                <td>+1 (555) 123-4567</td>
+                <td><a href="#" class="btn-info">Ver más</a></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Maria Rodríguez</td>
+                <td>25</td>
+                <td>+1 (555) 987-6543</td>
+                <td><a href="#" class="btn-info">NEL</a></td>
+              </tr>
+              <!-- Agrega más filas aquí siguiendo el mismo formato -->
+            </tbody>
+          </table>
+        </div>
+
+       
     </div>
     
 <script>
@@ -107,8 +170,10 @@
     document.addEventListener('DOMContentLoaded', () => {
     const btnInventario = document.querySelector('#btn-inventario');
     const btnPersonal = document.querySelector('#btn-personal');
+    const btnUsuario = document.querySelector('#btn-usuarios');
     const tablaInventario = document.querySelector('.tabla-inventario');
     const tablaPersonal = document.querySelector('.tabla-personal');
+    const tablaUsuarios = document.querySelector('.tabla-usuarios');
     const textOrganiza = document.querySelector('.Organiza-establ');
     
     btnInventario.addEventListener('click', () => {
@@ -116,6 +181,8 @@
         tablaPersonal.style.display = 'none';
         tablaInventario.style.display = 'true';
         textOrganiza.style.display = 'none';
+        tablaUsuarios.style.display = 'none';
+
     });
 
     btnPersonal.addEventListener('click', () => {
@@ -123,8 +190,18 @@
         tablaInventario.style.display = 'none';
         tablaPersonal.style.display = 'true';
         textOrganiza.style.display = 'none';
+        tablaUsuarios.style.display = 'none';
 
+    });
 
+    btnUsuario.addEventListener('click', () => {
+        tablaUsuarios.style.display = 'block';
+        tablaInventario.style.display = 'none';
+        tablaUsuarios.style.display = 'true';
+        textOrganiza.style.display = 'none';
+        tablaPersonal.style.display = 'none';
+
+        
     });
 });
 

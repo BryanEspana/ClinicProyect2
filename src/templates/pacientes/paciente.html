@@ -26,7 +26,6 @@
       <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
       <!--Pacientes-->
       <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
-
       <!--Icono Usuario-->
         <div class="profile-img-container">
           <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
@@ -44,10 +43,19 @@
         <div class="margin">
         <table>
           <thead>
-            <tr>
-              {% for i in columns %}
+            <tr class="center">
+              <!--{% for i in columns %}
                 <th>{{ i }}</th>
-              {% endfor %}
+              {% endfor %}-->
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Masa Corporal</th>
+              <th>Altura</th>
+              <th>Adicciones</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Ver Información</th>
+
             </tr>
           </thead>
           <tbody>
@@ -60,7 +68,12 @@
                 <td>{{ paciente.adicciones }}</td>
                 <td>{{ paciente.telefono }}</td>
                 <td>{{ paciente.direccion }}</td>
-                <td><button class="btn-info" data-id="{{ paciente.id_paciente}}" onclick="mostrarInfo(this.getAttribute('data-id'))">Ver más</button></td>            
+                <td>
+                  <form action="{{ url_for('infoPaciente') }}" method="POST" >
+                    <input type="hidden" name="id_paciente" value="{{ paciente.id_paciente }}">
+                    <input class="inputEdit" value="Ver información" placeholder="Editar" type="submit">
+                  </form>
+                </td>            
               </tr>
             {% endfor%}
             <!-- Agrega más filas aquí siguiendo el mismo formato -->
@@ -69,93 +82,5 @@
       </div>
     </div>
 
-    <!-- Pestaña nueva de informacion del paciente-->
-    <div id="dialogo" class="dialogo">
-      <div class="dialogo-contenido">
-        <h2>Información del paciente</h2>
-        <div class="left">
-          <p><strong>Nombre:</strong> <span id="nombre">Bryan</span></p>
-          <p><strong>Masa Corporal:</strong> <span id="masa-corporal">132</span></p>
-          <p><strong>Altura:</strong> <span id="altura">1.70</span>m</p>
-          <p><strong>Adicciones:</strong> <span id="adicciones">Cocaina</span></p>
-          <p><strong>Teléfono:</strong> <span id="telefono">42669407</span></p>
-          <p><strong>Dirección:</strong> <span id="direccion">10av 10-78</span></p>
-          <p><strong>Herencias:</strong><span id="herencias">solo es prueba</span></p>
-          <p><strong>Enfermedades:</strong> <span id="enfermedades">Sifilis</span></p>
-          <p><strong>Tratamiento:</strong> <span id="tratamiento">preso por 4 años</span></p>
-          <p><strong>Medicos:</strong><span id="medico">todos son malos</span></p>
-        </div>
-        <button class="btn-cerrar" onclick="cerrarDialogo()">Cerrar</button>
 
-      </div>
-
-    </div>
-    
-    
-    
-    
-<script>
-    //var texto = document.querySelector('.text-establecimiento');
-    //var contenido = texto.innerHTML;
-    /*1if (contenido.length > 20) {
-    texto.innerHTML = contenido.substring(0, 20) + '...';
-    }*/
-
-
-    function mostrarInfo() {
-    const dialogo = document.querySelector('#dialogo');
-    dialogo.innerHTML = 'Información del paciente'; // Aquí se coloca la información del paciente
-
-    // Abre el diálogo
-    dialogo.style.display = 'block';
-    dialogPolyfill.registerDialog(dialogo);
-
-    // Cierra el diálogo al hacer clic en el botón "cerrar"
-    const cerrarBtn = dialogo.querySelector('#cerrar-btn');
-    cerrarBtn.addEventListener('click', () => {
-        dialogo.style.display = 'none';
-    });
-}
-
-
-
-/*-------------------------------------------------informacion paciente--------------------------------------------*/
-function mostrarInfo(id) {
-    var infoPacientes = {{ pacientesInfo|tojson }};
-    console.log(infoPacientes)
-
-    const paciente = infoPacientes[id];
-
-    if (paciente) {
-      document.getElementById("nombre").textContent = paciente.nombre;
-      document.getElementById("masa-corporal").textContent = paciente.masacorporal;
-      document.getElementById("altura").textContent = paciente.altura;
-      document.getElementById("adicciones").textContent = paciente.adicciones;
-      document.getElementById("telefono").textContent = paciente.telefono;
-      const herencias = paciente.herencias.join(', '); // une los elementos de la lista con una coma como separador
-      document.getElementById("herencias").textContent = herencias;
-      const enfermedades = paciente.enfermedades.join(', '); // une los elementos de la lista con una coma como separador
-      document.getElementById("enfermedades").textContent = enfermedades;
-      const tratamiento = paciente.tratamiento.join(', '); // une los elementos de la lista con una coma como separador
-      document.getElementById("tratamiento").textContent = tratamiento;
-      const medico = paciente.medicos.join(', '); // une los elementos de la lista con una coma como separador
-      document.getElementById("medico").textContent = medico;
-
-      // Mostrar el diálogo
-      document.getElementById("dialogo").style.display = "block";
-    } else {
-      console.error(`No se encontró información del paciente con ID ${id}`);
-    }
-  }
-
-   // Cerrar el diálogo al hacer clic fuera de él
-   document.getElementById("dialogo").addEventListener("click", function (event) {
-    if (event.target === document.getElementById("dialogo")) {
-      document.getElementById("dialogo").style.display = "none";
-    }
-  });
-  function cerrarDialogo() {
-    document.getElementById("dialogo").style.display = "none";
-  }
-</script>
 {% endblock %}

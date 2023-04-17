@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Pacientes{% endblock %}
+{% block title %}Informacion Paciente{% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
@@ -26,7 +26,6 @@
       <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
       <!--Pacientes-->
       <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
-
       <!--Icono Usuario-->
         <div class="profile-img-container">
           <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
@@ -38,39 +37,93 @@
 <body class="center">
 
     <!--Pestaña info pacientes-->
-    <div class="center flex-column">
-        
-        <h3 class="titulo">Pacientes:</h3>
+    <div class="flex-column  center">
+        <h3 class="titulo">Informacion de Paciente:</h3>
         <div class="margin">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Masa Corporal</th>
-              <th>Teléfono</th>
-              <th>Más Información</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Juan Pérez</td>
-              <td>22</td>
-              <td>+1 (555) 123-4567</td>
-              <td><a href="#" class="btn-info">Ver más</a></td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Maria Rodríguez</td>
-              <td>25</td>
-              <td>+1 (555) 987-6543</td>
-              <td><a href="#" class="btn-info">Ver más</a></td>
-            </tr>
-            <!-- Agrega más filas aquí siguiendo el mismo formato -->
-          </tbody>
-        </table>
-      </div>
+          <hr>
+          <div class="infoPaciente">
+            <label>ID del paciente:</label>
+            <label class="inputPacientes">{{id_paciente}}</label>
+
+            <label>Nombre:</label>  
+            <label  class="inputPacientes">{{paciente.nombre}}</label>
+
+            <label>Masa:</label>
+            <label class="inputPacientes">{{paciente.masacorporal}}</label>
+
+            <label>Altura:</label>
+            <label class="inputPacientes">{{paciente.altura}}</label>
+            
+            <label>Adicciones:</label>
+            <label class="inputPacientes">{{paciente.adicciones}}</label>
+
+            <label>Teléfono:</label>
+            <label class="inputPacientes">{{paciente.telefono}}</label>
+      
+            <label>Dirección:</label>
+            <label class="inputPacientes" style="margin-bottom: 1.5rem;">{{paciente.direccion}}</label>
+
+            <hr>
+            <h4 class="titulo" style="margin-left: -1rem; ">Informacion especifica:</h4>
+            
+            <!--Herencia-->
+            <label>Herencia:</label>
+            {% set seen_elements = [] %}
+            <ul>
+              {% for element in herencia %}
+                {% if element not in seen_elements and element != "ninguna" %}
+                  <li>{{ element }}</li>
+                  {% set _dummy = seen_elements.append(element) %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+            <!--Tratamiento-->
+            <label>Tratamiento:</label>
+            {% set seen_elements = [] %}
+            <ul>
+              {% for element in tratamiento %}
+                {% if element not in seen_elements %}
+                  <li>{{ element }}</li>
+                  {% set _dummy = seen_elements.append(element) %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+            <!--Enfermedades-->
+            <label>Enfermedades:</label>
+            {% set seen_elements = [] %}
+            <ul>
+              {% for element in enfermedad %}
+                {% if element not in seen_elements %}
+                  <li>{{ element }}</li>
+                  {% set _dummy = seen_elements.append(element) %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+            <!--Medicos-->
+            <label> Medicos tratantes:</label>
+            {% set seen_elements = [] %}
+            <ul>
+              {% for element in medico %}
+                {% if element not in seen_elements %}
+                  <li>{{ element }}</li>
+                  {% set _dummy = seen_elements.append(element) %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+            <div style="margin-top: 1rem">
+              <a href="{{url_for('paciente')}}">
+                <button class="btn-info" style="background-color: #FC5E5E;">Cerrar</button>
+              </a>
+              <button class="btn-info" style="margin-bottom: 5rem;">Editar</button>
+              <button class="btn-info" style="margin-bottom: 5rem;">Guardar</button>
+            </div>
+          </div>
+
+        </div>
     </div>
     
 <script>
