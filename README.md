@@ -1,5 +1,7 @@
 # ClinicProyect2
 
+Link del repositorio: https://github.com/BryanEspana/ClinicProyect2
+
 Instalar Python y configurar ruta PATH
 
 Instalaciones necesarias para el pip: (pip install nombre)
