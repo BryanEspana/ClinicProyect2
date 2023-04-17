@@ -46,15 +46,17 @@
         <div class="margin " >
             <hr>
             <div class="infoPaciente">
-                <form style="display: flex; flex-direction: column;">
-                    <label class="text-inv">ID del paciente:</label>
-                    <select class="inputPacientes">{{id_paciente}}</select>
-                    <label class="text-inv"> Lugar</label>
-                    <select name="Lugar" class="inputPacientes"></select>
-                    <label class="text-inv"> Lugar</label>
-                    <input type="text" class="inputPacientes">
-                    <label class="text-inv"> Lugar</label>
-                    <input type="date" class="inputPacientes">
+                <form action="{{ url_for('agregarInventario') }}" method="post" style="display: flex; flex-direction: column;">
+                    <label class="text-inv">Utencilio o Medicina:</label>
+                    <select class="inputPacientes" name="utencilio">
+                        {% for i in utencilios %}
+                            <option value="{{i.id_utencilio}}">{{i.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    <label class="text-inv"> Cantidad</label>
+                    <input type="text" class="inputPacientes" name="cantidad">
+                    <label class="text-inv"> Fecha de expiracion</label>
+                    <input type="date" name="expiracion" class="inputPacientes">
                     <div style="display: flex; flex-direction: row;">
                         <!--Cancelar-->
                         <a href="{{url_for('establecimientos')}}" style="border: none; border-radius: 0.5rem; width: 20%; margin-top: 1rem; margin-right: 1rem; text-align: center; background-color: #CE4343;">

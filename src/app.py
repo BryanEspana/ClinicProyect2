@@ -169,29 +169,68 @@ def infoPaciente():
 
     return render_template('pacientes/paciente-individual.html', id_paciente=id_paciente, paciente=result1, herencia=herencia, tratamiento=tratamiento, enfermedad=enfermedad, medico=medico)
 #-----------------------------------------Medicamentos-----------------------------------------
-@app.route('/medicamentos')
+@app.route('/medicamentos', methods=['GET', 'POST'])
 def medicamentos():
-    return render_template('medicamentos/medicamento.html')
+    global id_lugarActual
+    global id_usuarioActual
+    query = text("""SELECT h.id_historial, l.nombre AS establecimiento, p.nombre AS paciente, m.nombre AS medico,e.nombre AS enfermedad, h.herencia, h.tratamiento, h.evolucion, h.estado, h.comentario FROM historial h JOIN lugar L ON h.id_lugar = l.id_lugar JOIN paciente p ON h.id_paciente = p.id_paciente JOIN medico m ON h.id_medico = m.id_medico JOIN enfermedad e ON h.id_enfermedad = e.id_enfermedad WHERE h.id_lugar = :id_lugar;""")
+    result = db.session.execute(query, {'id_lugar': id_lugarActual})
+    columns = result.keys()
+    result = result.fetchall()
+
+    if request.method == 'POST':
+        paciente = request.form['paciente']
+        nombrePaciente = request.form['nombrePaciente']
+        medico = request.form['medico']
+        enfermedad = request.form['enfermedad']
+        herencia = request.form['herencia']
+        tratamiento = request.form['tratamiento']
+        evolucion = request.form['evolucion']
+        estado = request.form['estado']
+        comentario = request.form['comentario']
+        id_historial = request.form['id_historial']
+        id_paciente = db.session.execute(text("""SELECT id_paciente FROM paciente WHERE nombre = :paciente"""), {'paciente': nombrePaciente}).fetchone()[0]
+        if paciente == "" and medico == "" and enfermedad == "" and herencia == "" and tratamiento == "" and evolucion == "" and estado == "" and comentario == "":
+            query = text("DELETE FROM historial WHERE id_paciente = :id_paciente")
+            db.session.execute(query, {'id_paciente': id_paciente})
+            db.session.commit()
+            return render_template('medicamentos/medicamento.html', historial=result, columns=columns)
+        else:
+            id_medico = db.session.execute(text("""SELECT id_medico FROM medico WHERE nombre = :medico"""), {'medico': medico}).fetchone()[0]
+            id_enfermedad = db.session.execute(text("""SELECT id_enfermedad FROM enfermedad WHERE nombre = :enfermedad"""), {'enfermedad': enfermedad}).fetchone()[0]
+            query = text("""UPDATE historial SET id_paciente = :id_paciente, id_medico = :id_medico, id_enfermedad = :id_enfermedad, herencia = :herencia, tratamiento = :tratamiento, evolucion = :evolucion, estado = :estado, comentario = :comentario WHERE id_historial = :id_historial""")
+            db.session.execute(query, {'id_paciente': id_paciente, 'id_medico': id_medico, 'id_enfermedad': id_enfermedad, 'herencia': herencia, 'tratamiento': tratamiento, 'evolucion': evolucion, 'estado': estado, 'comentario': comentario, 'id_historial': id_historial})
+            id_bitacora = db.session.execute(text("""SELECT id_cambio FROM bitacora ORDER BY id_cambio DESC LIMIT 1""")).fetchone()[0]
+            db.session.execute(text("UPDATE bitacora SET usuario = :id_usuario WHERE id_cambio = :id_bitacora"), {'id_usuario': id_usuarioActual, 'id_bitacora': id_bitacora})
+            db.session.commit()
+            return render_template('medicamentos/medicamento.html', historial=result, columns=columns)
+
+        return render_template('medicamentos/medicamento.html', historial=result, columns=columns)
+    return render_template('medicamentos/medicamento.html', historial=result, columns=columns)
 
 #-----------------------------------------Establecimientos-----------------------------------------
 @app.route('/establecimiento', methods=['GET', 'POST'])
 def establecimientos():
     global id_lugarActual
 
-    query1 = text("""SELECT * FROM usuario""")
-    query2 = text("""SELECT * FROM medico""")
-    query3 = text("""SELECT u.nombre, i.cantidad FROM inventario i JOIN utencilio_med u ON i.id_utencilio = u.id_utencilio WHERE i.cantidad<10 AND i.id_lugar = :id_lugar;""")
-    result1 = db.session.execute(query1)
-    result2 = db.session.execute(query2)
+    query1 = text("""SELECT u.id_medico, u.usuario, u.password FROM usuario u JOIN medico m ON u.id_medico = m.id_medico WHERE m.id_lugar = :id_lugar;""")
+    query2 = text("""SELECT * FROM medico WHERE id_lugar = :id_lugar;""")
+    query3 = text("""SELECT l.nombre AS  lugar, u.nombre, i.cantidad, i.expiracion FROM inventario i JOIN utencilio_med u ON i.id_utencilio = u.id_utencilio JOIN lugar l ON l.id_lugar = i.id_lugar  WHERE i.id_lugar = :id_lugar;""")
+    query4 = text("""SELECT u.nombre, i.cantidad, (i.expiracion - current_date) AS dias_habiles FROM inventario i JOIN utencilio_med u ON u.id_utencilio = i.id_utencilio WHERE i.cantidad<= (0.15*u.cant_optima) AND i.id_lugar = :id_lugar;""")
+    result1 = db.session.execute(query1, {'id_lugar': id_lugarActual})
+    result2 = db.session.execute(query2, {'id_lugar': id_lugarActual})
     result3 = db.session.execute(query3, {'id_lugar': id_lugarActual})
+    result4 = db.session.execute(query4, {'id_lugar': id_lugarActual})
 
     ColumnUsuarios = result1.keys()
     ColumnMedicos = result2.keys()
     ColumnInventario = result3.keys()
+    ColumnInventarioAlerta = result4.keys()
 
     result1 = result1.fetchall()
     result2 = result2.fetchall()
     result3 = result3.fetchall()
+    result4 = result4.fetchall()
 
     if request.method == 'POST':
         if request.form['identificador'] == 'usuario':
@@ -201,7 +240,7 @@ def establecimientos():
             queryUpdate = text("""UPDATE usuario SET id_medico = :id_usuario, usuario = :usuario, password = :password WHERE id_medico = :id_usuario""")
             db.session.execute(queryUpdate, {'id_usuario': id_usuario, 'usuario': usuario, 'password': password})
             db.session.commit()
-            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, alerta=result4, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario, ColumnInventarioAlerta=ColumnInventarioAlerta)
         elif request.form['identificador'] == 'personal':
             id_usuario = request.form['idmedico']
             usuario = request.form['nombre']
@@ -213,27 +252,71 @@ def establecimientos():
             queryUpdate = text("""UPDATE medico SET id_medico = :id_usuario, nombre = :usuario, direccion = :direccion, telefono = :telefono, numcolegiado = :numcolegiado, especialidad = :especialidad, id_lugar = :id_lugar WHERE id_medico = :id_usuario""")
             db.session.execute(queryUpdate, {'id_usuario': id_usuario, 'usuario': usuario, 'direccion': direccion, 'telefono': telefono, 'numcolegiado': numero_colegiado, 'especialidad': especialidad, 'id_lugar': id_lugar})
             db.session.commit()
-            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, alerta=result4, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario, ColumnInventarioAlerta=ColumnInventarioAlerta)
        
 
-    return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+    return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, alerta=result4, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario, ColumnInventarioAlerta=ColumnInventarioAlerta)
 
 #---------------------Agregar a inventario---------------------
-@app.route('/agregarInventario')
+@app.route('/agregarInventario', methods=['GET', 'POST'])
 def agregarInventario():
-    #global id_lugarActual
-    #id_utencilio = request.form['id_utencilio']
-    #cantidad = request.form['cantidad']
-    #query = text("""INSERT INTO inventario (id_utencilio, cantidad, id_lugar) VALUES (:id_utencilio, :cantidad, :id_lugar)""")
-    #db.session.execute(query, {'id_utencilio': id_utencilio, 'cantidad': cantidad, 'id_lugar': id_lugarActual})
-    #db.session.commit()
-    return render_template('establecimiento/agregarInv.html')
+    global id_lugarActual
+    query = text("""SELECT * FROM utencilio_med;""")
+    result = db.session.execute(query).fetchall()
+    query1 = text("SELECT * FROM lugar")
+    result1 = db.session.execute(query1).fetchall()
+
+    if request.method == 'POST':
+        global id_lugarActual
+        id_utencilio = request.form['utencilio']
+        cantidad = request.form['cantidad']
+        expiracion = request.form['expiracion']
+        idInv = db.session.execute(text("SELECT id_inventario FROM inventario ORDER BY id_inventario DESC LIMIT 1;")).fetchone()[0] + 1
+        query = text("""INSERT INTO inventario VALUES (:id_inventario, :id_lugar, :id_utencilio, :cantidad, :expiracion);""")
+        db.session.execute(query, {'id_inventario':idInv,'id_utencilio': id_utencilio, 'id_lugar': id_lugarActual, 'cantidad': cantidad, 'expiracion': expiracion})
+        db.session.commit()
+        return render_template('establecimiento/agregarInv.html',utencilios=result, lugares=result1)
+    
+    return render_template('establecimiento/agregarInv.html',utencilios=result, lugares=result1)
 
 
 #-----------------------------------------dashboard-----------------------------------------
 @app.route('/dashboard/dashboard')
 def dashboard():
-    return render_template('dashboard/dashboard.html')
+    global id_lugarActual
+    #Enfermedades mortales
+    enfermedades = text("""SELECT e.nombre AS Enfermedad, count(h.id_enfermedad) AS Muertes FROM historial h JOIN enfermedad e ON e.id_enfermedad = h.id_enfermedad WHERE h.estado LIKE 'Muerto%' GROUP BY e.nombre ORDER BY Muertes DESC;""")
+    resultEnfermedades = db.session.execute(enfermedades).fetchall()
+    #Medicos Populares
+    medicos = text("""SELECT * FROM lugar;
+                    SELECT m.nombre AS medico, count(h.id_medico) AS visita
+                    FROM historial h
+                    JOIN medico m ON h.id_medico = m.id_medico
+                    GROUP BY medico
+                    ORDER BY  visita DESC
+                    LIMIT 10;""")
+    resultMedicos = db.session.execute(medicos).fetchall()
+    #pacientes mas visitados
+    visitas = text("""SELECT COUNT(h.id_paciente) AS cuenta, p.nombre, p.telefono, p.direccion FROM historial h JOIN paciente p ON h.id_paciente = p.id_paciente GROUP BY p.id_paciente ORDER BY cuenta desc WHERE h.id_lugar = :id_lugar LIMIT 5;""")
+    resultVisitas = db.session.execute(visitas, {'id_lugar': id_lugarActual}).fetchall()
+    #Reporte de inventario
+    reporte = text("""SELECT u.nombre, i.cantidad FROM inventario i JOIN utencilio_med u ON i.id_utencilio = u.id_utencilio WHERE i.cantidad<10 AND i.id_lugar = :id_lugar;""")
+    resultReporte = db.session.execute(reporte, {'id_lugar': id_lugarActual}).fetchall()
+    #Establecimientos populares
+
+    #Todos
+    pop = text("""SELECT lugar.nombre AS lugar, COUNT(*) AS cantidad_pacientes FROM lugar JOIN historial ON lugar.id_lugar = historial.id_lugar GROUP BY lugar.id_lugar ORDER BY cantidad_pacientes DESC LIMIT 3""")
+    resultPop = db.session.execute(pop).fetchall()
+    # Hospitales
+    hosp = text("""SELECT lugar.nombre, COUNT(*) AS cantidad_pacientes FROM lugar JOIN historial ON lugar.id_lugar = historial.id_lugar WHERE lugar.nombre LIKE '%Hospital%' GROUP BY lugar.nombre ORDER BY cantidad_pacientes DESC LIMIT 3;""")
+    resultHosp = db.session.execute(hosp).fetchall()
+    # Clinicas
+    clinic = text("""SELECT lugar.nombre, COUNT(*) AS cantidad_pacientes FROM lugar JOIN historial ON lugar.id_lugar = historial.id_lugar WHERE lugar.nombre LIKE '%Clinica%' GROUP BY lugar.nombre ORDER BY cantidad_pacientes DESC LIMIT 3;""")
+    resultClinic = db.session.execute(clinic).fetchall()
+    # Centros Medicos
+    Centro = text("""SELECT lugar.nombre, COUNT(*) AS cantidad_pacientes FROM lugar JOIN historial ON lugar.id_lugar = historial.id_lugar WHERE lugar.nombre LIKE '%Centro Medico%' GROUP BY lugar.nombre ORDER BY cantidad_pacientes DESC LIMIT 3;""")
+    resultCentro = db.session.execute(Centro).fetchall()
+    return render_template('dashboard/dashboard.html', enfermedades = resultEnfermedades, medicos = resultMedicos, visitas = resultVisitas, inventario = resultReporte, total = resultPop, hospitales = resultHosp, clinicas = resultClinic, centros = resultCentro)
 
 #-----------------------------------------Inventario-----------------------------------------
 @app.route('/inventario')

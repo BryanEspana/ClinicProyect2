@@ -48,43 +48,33 @@
         <table>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Pedir más</th>
+                {% for column in columns %}
+                  {% if column != "id_historial"%}
+                    <th>{{ column }}</th>
+                  {% endif %}
+                {% endfor %}
+                <th>Guardar</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Paracetamol</td>
-                <td>100</td>
-                <td><a href="#" class="btn-info">Pedir más</a></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Ibuprofeno</td>
-                <td>75</td>
-                <td><a href="#" class="btn-info">Pedir más</a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Amoxicilina</td>
-                <td>50</td>
-                <td><a href="#" class="btn-info">Pedir más</a></td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Losartán</td>
-                <td>30</td>
-                <td><a href="#" class="btn-info">Pedir más</a></td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Metformina</td>
-                <td>120</td>
-                <td><a href="#" class="btn-info">Pedir más</a></td>
-              </tr>
+              {% for row in historial %}
+                <tr>
+                  <form action="{{ url_for('medicamentos') }}" method="post">
+                    <td>{{ row.establecimiento }}</td>
+                    <td><input type="text" class="inputs-establecimiento" name="paciente" id="" value="{{ row.paciente }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="medico" id="" value="{{ row.medico }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="enfermedad" id="" value="{{ row.enfermedad }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="herencia" id="" value="{{ row.herencia }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="tratamiento" id="" value="{{ row.tratamiento }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="evolucion" id="" value="{{ row.evolucion }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="estado" id="" value="{{ row.estado }}"></td>
+                    <td><input type="text" class="inputs-establecimiento" name="comentario" id="" value="{{ row.comentario }}"></td>
+                    <input type="hidden" name="nombrePaciente" value="{{ row.paciente }}">
+                    <input type="hidden" name="id_historial" value="{{ row.id_historial }}">
+                    <td><input type="submit" class="inputEdit" value="Guardad"></td>
+                  </form>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

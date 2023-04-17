@@ -71,7 +71,6 @@
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Establecimiento</th>
                   <th>Utencilios/Medicamentos</th>
                   <th>Cantidad</th>
@@ -79,20 +78,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Juan Pérez</td>
-                  <td>22</td>
-                  <td>+1 (555) 123-4567</td>
-                  <td><a href="#" class="btn-info">Ver más</a></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Maria Rodríguez</td>
-                  <td>25</td>
-                  <td>+1 (555) 987-6543</td>
-                  <td><a href="#" class="btn-info">Ver más</a></td>
-                </tr>
+                {% for prod in inventario %}
+                  <tr>
+                    <td>{{ prod.lugar }}</td>
+                    <td>{{ prod.nombre }}</td>
+                    <td>{{ prod.cantidad }}</td>
+                    <td>{{ prod.expiracion }}</td>
+                  </tr>
+                {% endfor %}
                 <!-- Agrega más filas aquí siguiendo el mismo formato -->
               </tbody>
             </table>
@@ -171,24 +164,17 @@
           <table>
             <thead>
               <tr>
-                  <th>ID</th>
-                  <th>Usuario</th>
-                  <th>Contraseña</th>
-                  <th>Guardar</th>
+                  {% for i in ColumnInventarioAlerta %}
+                    <th>{{ i }}</th>
+                  {% endfor %}
                 </tr>
             </thead>
             <tbody>
-              {% for usuario in usuarios %}
+              {% for prod in alerta %}
                 <tr>
-                  <form action="{{ url_for('establecimientos')}}"  method="POST">
-                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ usuario.id_medico }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="usuario" id="" value="{{ usuario.usuario }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="password" id="" value="{{ usuario.password }}"></td>
-                    <td>
-                      <input type="hidden" name="identificador" value="usuario">
-                      <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
-                    </td>
-                  </form>
+                  <td>{{ prod.nombre }}</td>
+                  <td>{{ prod.cantidad }}</td>
+                  <td>{{ prod.dias_habiles }}</td>
                 </tr>
               {% endfor %}
             </tbody>

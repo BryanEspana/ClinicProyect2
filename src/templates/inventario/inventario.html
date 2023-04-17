@@ -64,34 +64,20 @@
         </div>
         <!--Tabla de inventario-->
         <div class="margin tabla-enfMortales"  style="display: none;">
-            <a href="{{url_for('agregarInventario')}}">
-              <button style="background-color: #43BF5A;" >Agregar a inventario</button>
-            </a>  
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Establecimiento</th>
-                  <th>Utencilios/Medicamentos</th>
-                  <th>Cantidad</th>
-                  <th>Expiración</th>
+                  <th>Enfermedad</th>
+                  <th>Muertes</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Juan Pérez</td>
-                  <td>22</td>
-                  <td>+1 (555) 123-4567</td>
-                  <td><a href="#" class="btn-info">Ver más</a></td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Maria Rodríguez</td>
-                  <td>25</td>
-                  <td>+1 (555) 987-6543</td>
-                  <td><a href="#" class="btn-info">Ver más</a></td>
-                </tr>
+                {% for dato in enfermedades %}
+                  <tr>
+                    <td>{{ dato.enfermedad }}</td>
+                    <td>{{ dato.muertes }}</td>
+                  </tr>
+                {% endfor %}
                 <!-- Agrega más filas aquí siguiendo el mismo formato -->
               </tbody>
             </table>
@@ -102,32 +88,15 @@
             <table>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Dirección</th>
-                  <th>Teléfono</th>
-                  <th># Colegiado</th>
-                  <th>Especialidad</th>
-                  <th>Establecimiento</th>
-                  <th>Guardar</th>
+                  <th>Medico</th>
+                  <th>Visitas</th>
                 </tr>
               </thead>
               <tbody>
-                {% for medico in personal %}
+                {% for p in medicos %}
                   <tr>
-                    <form action="{{ url_for('establecimientos')}}"  method="POST">
-                      <td><input class="inputs-establecimiento" type="text" name="idmedico" id="" value="{{ medico.id_medico }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="nombre" id="" value="{{ medico.nombre }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="direccion" id="" value="{{ medico.direccion }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="telefono" id="" value="{{ medico.telefono }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="numcolegiado" id="" value="{{ medico.numcolegiado }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="especialidad" id="" value="{{ medico.especialidad }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="lugar" id="" value="{{ medico.id_lugar }}"></td>
-                      <td>
-                        <input type="hidden" name="identificador" value="personal">
-                        <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
-                      </td>
-                    </form>
+                    <td>{{ p.medico }}</td>
+                    <td>{{ p.visita }}</td>
                   </tr>
                 {% endfor %}
               </tbody>
@@ -139,24 +108,19 @@
           <table>
             <thead>
               <tr>
-                  <th>ID</th>
-                  <th>Usuario</th>
-                  <th>Contraseña</th>
-                  <th>Guardar</th>
+                  <th>Visita</th>
+                  <th>Nombre </th>
+                  <th>Telefono</th>
+                  <th>Direccion</th>
                 </tr>
             </thead>
             <tbody>
-              {% for usuario in usuarios %}
+              {% for visita in visitas %}
                 <tr>
-                  <form action="{{ url_for('establecimientos')}}"  method="POST">
-                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ usuario.id_medico }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="usuario" id="" value="{{ usuario.usuario }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="password" id="" value="{{ usuario.password }}"></td>
-                    <td>
-                      <input type="hidden" name="identificador" value="usuario">
-                      <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
-                    </td>
-                  </form>
+                  <td>{{ visita.cuenta }}</td>
+                  <td>{{ visita.nombre }}</td>
+                  <td>{{ visita.telefono }}</td>
+                  <td>{{ visita.direccion }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -170,24 +134,15 @@
           <table>
             <thead>
               <tr>
-                  <th>ID</th>
-                  <th>Usuario</th>
-                  <th>Contraseña</th>
-                  <th>Guardar</th>
-                </tr>
+                <th>Utencilio/Medicina</th>
+                <th>Cantidad restante</th>
+              </tr>
             </thead>
             <tbody>
-              {% for usuario in usuarios %}
+              {% for prod in inventario %}
                 <tr>
-                  <form action="{{ url_for('establecimientos')}}"  method="POST">
-                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ usuario.id_medico }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="usuario" id="" value="{{ usuario.usuario }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="password" id="" value="{{ usuario.password }}"></td>
-                    <td>
-                      <input type="hidden" name="identificador" value="usuario">
-                      <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
-                    </td>
-                  </form>
+                  <td>{{ prod.nombre }}</td>
+                  <td>{{ prod.cantidad}}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -199,30 +154,70 @@
           <table>
             <thead>
               <tr>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Dirección</th>
-                  <th>Teléfono</th>
-                  <th>Guardar</th>
+                  <th>Establecimiento</th>
+                  <th>Visitas</th>
                 </tr>
             </thead>
             <tbody>
-              {% for establecimiento in establecimientos %}
+              {% for establecimiento in total %}
                 <tr>
-                  <form action="{{ url_for('establecimientos')}}"  method="POST">
-                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ establecimiento.id_lugar }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="nombre" id="" value="{{ establecimiento.nombre }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="direccion" id="" value="{{ establecimiento.direccion }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="telefono" id="" value="{{ establecimiento.telefono }}"></td>
-                    <td>
-                      <input type="hidden" name="identificador" value="establecimiento">
-                      <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
-                    </td>
-                  </form>
+                  <td>{{ establecimiento.lugar }}</td>
+                  <td>{{ establecimiento.cantidad_pacientes }}</td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
+          <h4 class="titulo">Hospitales mas visitados</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Hospitales</th>
+                  <th>Visitas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for establecimiento in hospitales %}
+                  <tr>
+                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.cantidad_pacientes }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <h4 class="titulo">Clinicas mas visitadas</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Clinicas</th>
+                  <th>Visitas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for establecimiento in clinicas %}
+                  <tr>
+                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.cantidad_pacientes }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <h4 class="titulo">Centros medico mas visitados</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Centros medicos</th>
+                  <th>Visitas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for establecimiento in centros %}
+                  <tr>
+                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.cantidad_pacientes }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
     </div>
     
     </div>
