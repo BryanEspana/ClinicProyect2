@@ -68,36 +68,41 @@
             <label class="inputPacientes" style="margin-bottom: 1.5rem;">{{paciente.direccion}}</label>
 
             <hr>
-            <h4 class="titulo" style="margin-left: -1rem; ">Informacion especifica:</h4>
-            
+            <h4 class="info-title">Información específica:</h4>
+              
             <!--Herencia-->
-            <label>Herencia:</label>
-            {% set seen_elements = [] %}
-            <ul>
-              {% for element in herencia %}
-                {% if element not in seen_elements and element != "ninguna" %}
-                  <li>{{ element }}</li>
-                  {% set _dummy = seen_elements.append(element) %}
-                {% endif %}
-              {% endfor %}
-            </ul>
+            <div class="info-container">
+                <label class="info-label">Herencia:</label>
+                {% set seen_elements = [] %}
+                <ul class="info-list">
+                  {% for element in herencia %}
+                    {% if element not in seen_elements and element != "ninguna" %}
+                      <li>{{ element }}</li>
+                      {% set _dummy = seen_elements.append(element) %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
 
             <!--Tratamiento-->
-            <label>Tratamiento:</label>
-            {% set seen_elements = [] %}
-            <ul>
-              {% for element in tratamiento %}
-                {% if element not in seen_elements %}
-                  <li>{{ element }}</li>
-                  {% set _dummy = seen_elements.append(element) %}
-                {% endif %}
-              {% endfor %}
-            </ul>
+            <div  class="info-container">
+              <label class="info-label">Tratamiento:</label>
+              {% set seen_elements = [] %}
+              <ul  class="info-list">
+                {% for element in tratamiento %}
+                  {% if element not in seen_elements %}
+                    <li>{{ element }}</li>
+                    {% set _dummy = seen_elements.append(element) %}
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
 
             <!--Enfermedades-->
-            <label>Enfermedades:</label>
+            <div class="info-container">
+            <label class="info-label">Enfermedades:</label>
             {% set seen_elements = [] %}
-            <ul>
+            <ul  class="info-list">
               {% for element in enfermedad %}
                 {% if element not in seen_elements %}
                   <li>{{ element }}</li>
@@ -105,11 +110,14 @@
                 {% endif %}
               {% endfor %}
             </ul>
+            </div>
+
+            <div class="info-container">
 
             <!--Medicos-->
-            <label> Medicos tratantes:</label>
+            <label class="info-label"> Medicos tratantes:</label>
             {% set seen_elements = [] %}
-            <ul>
+            <ul class="info-list">
               {% for element in medico %}
                 {% if element not in seen_elements %}
                   <li>{{ element }}</li>
@@ -117,12 +125,13 @@
                 {% endif %}
               {% endfor %}
             </ul>
+          </div>
 
             <div style="margin-top: 1rem">
               <a href="{{url_for('paciente')}}">
-                <button class="btn-info" style="background-color: #FC5E5E;">Cerrar</button>
+                <button class="btn-info" style="background-color: #FC5E5E; margin-right: 0.5rem;">Cerrar</button>
               </a>
-              <button class="btn-info" style="margin-bottom: 5rem;">Editar</button>
+              <button class="btn-info" style="margin-bottom: 5rem; margin-right: 0.5rem;">Editar</button>
               <button class="btn-info" style="margin-bottom: 5rem;">Guardar</button>
             </div>
           </div>
