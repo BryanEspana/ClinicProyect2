@@ -9,9 +9,10 @@ body {
 
 .imagenfondo::after {
   content: '';
-  background-image: url('/static/img/hospital.jpg');
+  /*background-image: url('/static/img/Hospital.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;*/
+  background-color: #ffffff;
   position: absolute;
   top: 0;
   left: 0;
@@ -22,7 +23,7 @@ body {
 
 .imagenfondo::before {
   content: '';
-  background-color: rgba(0, 0, 0, 0.5); /* Ajusta el último valor (0-1) según la opacidad oscura deseada */
+  background-color: rgba(0, 0, 0, 0.158); /* Ajusta el último valor (0-1) según la opacidad oscura deseada */
   position: absolute;
   top: 0;
   left: 0;
@@ -130,4 +131,15 @@ Registrar
   background-color: rgba(255, 255, 255, 0.863);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+}
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+.show-password-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
 }

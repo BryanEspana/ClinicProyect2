@@ -14,12 +14,12 @@
 <header class="header-top flex-row">
     <img class="logo-img" src="static\img\logo.png">
     <div class=" flex-row encabezado padT1">
-        <p class="padR4 hover-p">Inicio</p>
-        <p class="padR4 hover-p">Acerca de</p>
-        <p class="padR4 hover-p">Servicios</p>
+
     </div>
     <div class="padR2 padT05">
-        <button class="buttonRegister">Registrarse</button>
+        <a href="{{url_for('register')}}" style="background-color:  none; color: rgba(255, 255, 255, 0);">
+            <button class="buttonRegister">Registrarse</button>
+        </a>
         <a href="{{ url_for('login') }}">
             <button class="shadow btnLogin">Iniciar Sesión</button>
         </a>
