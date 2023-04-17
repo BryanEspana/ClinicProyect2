@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Añadir a Historial{% endblock %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<header class="header-top flex-row" style="background-color: #4b7fbd;">
+    <img class="logo-img" src="static\img\logoBlanco.png">
+    <div class=" flex-row encabezado ">
+      <!--Inicio-->
+      <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
+      <!--Establecimientos-->
+      <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
+      <!--Medicamentos-->
+      <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Historial</p></a>
+      <!--Pacientes-->
+      <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
+      <!--Estadisticas-->
+      <a href="{{ url_for('estadisticas') }}"><p class="padR4 hover-p padT1">Estadísticas</p></a>
+      <!--Cerrar Sesion-->
+      <a href="logout"><p class="padR4 hover-p padT1">Cerrar sesion</p></a>
+      <!--Icono Usuario-->
+        <div class="profile-img-container">
+          <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
+      </div>
+        
+  </div>
+
+</header>
+<body class="center">
+
+    <!--Pestaña info pacientes-->
+    <div class="center flex-column">
+        <h3 class="titulo">Agregar paciente:</h3>
+        <div class="margin " >
+            <hr>
+            <div class="infoPaciente">
+                <form action="{{ url_for('agregarInventario') }}" method="post" style="display: flex; flex-direction: column;">
+                    <div class="form-grid">
+                        <label class="text-inv" style="padding: 0.5rem;"> ID:  </label>
+                        <input type="text" class="inputPacientes" name="cantidad" >
+                        <label class="text-inv" style="padding: 0.5rem;"> Nombre:</label>
+                        <input type="text" class="inputPacientes" name="cantidad" >
+                        <label class="text-inv" style="padding: 0.5rem;"> Masa Corporal:</label>
+                        <input type="text" class="inputPacientes" name="cantidad">
+                        <label class="text-inv" style="padding: 0.5rem;"> Altura:</label>
+                        <input type="text" class="inputPacientes" name="cantidad">
+                        <label class="text-inv"  style="padding: 0.5rem;"> Adicciones:</label>
+                        <input type="text" class="inputPacientes" name="cantidad">
+                        <label class="text-inv"  style="padding: 0.5rem;"> Telefono:</label>
+                        <input type="number" class="inputPacientes" name="cantidad">
+                        <label class="text-inv" style="padding: 0.5rem;"> Dirección:</label>
+                        <input type="text" class="inputPacientes " name="cantidad">
+                    </div>
+
+                    </div>
+
+                    <div style="display: flex; flex-direction: row; justify-content: center;">
+                        <!--Cancelar-->
+                        <a href="{{url_for('medicamentos')}}" style="border: none; border-radius: 0.5rem; width: 20%; margin-top: 1rem; margin-right: 1rem; text-align: center; background-color: #CE4343;">
+                            <button class="btn-info" style="background-color: #4b7ebd00;" > Cancelar</button>
+
+                        </a>
+                        <!--Agregar a inventario-->
+                        <input  type="submit" class="btn-info" style="border: none; width: 20%; margin-top: 1rem; text-align: center; " value="Agregar">    
+                    </div>
+                
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

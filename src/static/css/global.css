@@ -42,6 +42,9 @@
 .margin-personal{
   width: 90%;
 }
+.marginHistorial{
+  width: 95%;
+}
 .marL1{
     margin-left: 1rem;
 }
@@ -288,3 +291,23 @@ p{
   position: absolute;
   top:10rem;
 }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.form-grid label {
+  text-align: right;
+}
+
+.form-grid input {
+  width: 100%;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+

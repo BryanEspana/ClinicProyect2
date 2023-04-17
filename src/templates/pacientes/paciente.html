@@ -45,7 +45,13 @@
         
         <h3 class="titulo">Pacientes:</h3>
         <div class="margin">
-        <table>
+          <a href="{{url_for('AddPaciente')}}" style="display: flex; justify-content: right;">
+            <button style="background-color: #43BF5A; width: 20%;" >
+              <img src="static\img\iconAdd.png" alt="" style="width: 25%;">
+              <span>Agregar</span>
+            </button>
+          </a>   
+        <table style="margin-bottom: 2rem;">
           <thead>
             <tr class="center">
               <!--{% for i in columns %}

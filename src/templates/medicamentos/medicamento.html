@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Main{% endblock %}
+{% block title %}Historial{% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
@@ -44,8 +44,15 @@
     <div class="center flex-column">
         
         <h3 class="titulo">Historial:</h3>
-        <div class="margin">
+        <div class="marginHistorial">
+          <a href="{{url_for('AddHistorial')}}" style="display: flex; justify-content: right;">
+            <button style="background-color: #43BF5A;width: 10%;" >
+              <img src="static\img\iconAdd.png" alt="" style="width: 25%;">
+              <span>Agregar</span>
+            </button>
+          </a>   
         <table>
+          
             <thead>
               <tr>
                 {% for column in columns %}
@@ -61,14 +68,15 @@
                 <tr>
                   <form action="{{ url_for('medicamentos') }}" method="post">
                     <td>{{ row.establecimiento }}</td>
-                    <td><input type="text" class="inputs-establecimiento" name="paciente" id="" value="{{ row.paciente }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="medico" id="" value="{{ row.medico }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="enfermedad" id="" value="{{ row.enfermedad }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="herencia" id="" value="{{ row.herencia }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="tratamiento" id="" value="{{ row.tratamiento }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="evolucion" id="" value="{{ row.evolucion }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="estado" id="" value="{{ row.estado }}"></td>
-                    <td><input type="text" class="inputs-establecimiento" name="comentario" id="" value="{{ row.comentario }}"></td>
+                    <td><textarea class="inputs-establecimiento" name="paciente" id="" rows="2" style="width: 100%; resize: none;">{{ row.paciente }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="medico" id="" rows="2" style="width: 100%; resize: none;">{{ row.medico }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="enfermedad" id="" rows="2" style="width: 100%; resize: none;">{{ row.enfermedad }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="herencia" id="" rows="2" style="width: 100%; resize: none;">{{ row.herencia }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="tratamiento" id="" rows="2" style="width: 100%; resize: none;">{{ row.tratamiento }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="evolucion" id="" rows="2" style="width: 100%; resize: none;">{{ row.evolucion }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="estado" id="" rows="2" style="width: 100%; resize: none;">{{ row.estado }}</textarea></td>
+                    
+                    <td><textarea class="inputs-establecimiento" name="comentario" id="" rows="2" style="width: 100%; resize: none; font-size: 12px;">{{ row.comentario }}</textarea></td>
                     <input type="hidden" name="nombrePaciente" value="{{ row.paciente }}">
                     <input type="hidden" name="id_historial" value="{{ row.id_historial }}">
                     <td><input type="submit" class="inputEdit" value="Guardad"></td>

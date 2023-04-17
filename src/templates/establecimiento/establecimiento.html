@@ -65,9 +65,6 @@
         </div>
         <!--Tabla de inventario-->
         <div class="margin tabla-inventario"  style="display: none;">
-            <a href="{{url_for('agregarInventario')}}">
-              <button style="background-color: #43BF5A;" >Agregar a inventario</button>
-            </a>  
             <table>
               <thead>
                 <tr>
@@ -89,6 +86,12 @@
                 <!-- Agrega más filas aquí siguiendo el mismo formato -->
               </tbody>
             </table>
+            <a href="{{url_for('agregarInventario')}}" style="display: flex; justify-content: right; margin-top: 1rem;">
+              <button style="background-color: #43BF5A; margin-bottom: 2rem; width: 20%;" >
+                <img src="static\img\iconAdd.png" alt="" style="width: 25%;">
+                <span>Agregar</span>
+              </button>
+            </a>    
           </div>
 
           <!--Tabla de personal-->
@@ -110,13 +113,14 @@
                 {% for medico in personal %}
                   <tr>
                     <form action="{{ url_for('establecimientos')}}"  method="POST">
-                      <td><input class="inputs-establecimiento" type="text" name="idmedico" id="" value="{{ medico.id_medico }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="nombre" id="" value="{{ medico.nombre }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="direccion" id="" value="{{ medico.direccion }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="telefono" id="" value="{{ medico.telefono }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="numcolegiado" id="" value="{{ medico.numcolegiado }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="especialidad" id="" value="{{ medico.especialidad }}"></td>
-                      <td><input class="inputs-establecimiento" type="text" name="lugar" id="" value="{{ medico.id_lugar }}"></td>
+                        <td><textarea class="inputs-establecimiento" name="idmedico" id="" rows="2" style="width: 100%; resize: none;">{{ medico.id_medico }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="nombre" id="" rows="2" style="width: 100%; resize: none;">{{ medico.nombre }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="direccion" id="" rows="2" style="width: 100%; resize: none;">{{ medico.direccion }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="telefono" id="" rows="2" style="width: 100%; resize: none;">{{ medico.telefono }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="numcolegiado" id="" rows="2" style="width: 100%; resize: none;">{{ medico.numcolegiado }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="especialidad" id="" rows="2" style="width: 100%; resize: none;">{{ medico.especialidad }}</textarea></td>
+                        <td><textarea class="inputs-establecimiento" name="lugar" id="" rows="2" style="width: 100%; resize: none;">{{ medico.id_lugar }}</textarea></td>
+
                       <td>
                         <input type="hidden" name="identificador" value="personal">
                         <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
@@ -143,9 +147,10 @@
               {% for usuario in usuarios %}
                 <tr>
                   <form action="{{ url_for('establecimientos')}}"  method="POST">
-                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ usuario.id_medico }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="usuario" id="" value="{{ usuario.usuario }}"></td>
-                    <td><input class="inputs-establecimiento" type="text" name="password" id="" value="{{ usuario.password }}"></td>
+                    <td><textarea class="inputs-establecimiento" name="id" id="" rows="2" style="width: 100%; resize: none;">{{ usuario.id_medico }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="usuario" id="" rows="2" style="width: 100%; resize: none;">{{ usuario.usuario }}</textarea></td>
+                    <td><textarea class="inputs-establecimiento" name="password" id="" rows="2" style="width: 100%; resize: none;">{{ usuario.password }}</textarea></td>
+                    
                     <td>
                       <input type="hidden" name="identificador" value="usuario">
                       <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        

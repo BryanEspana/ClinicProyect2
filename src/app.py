@@ -332,6 +332,18 @@ def estadisticas():
     return render_template('inventario/inventario.html', enfermedades = resultEnfermedades, medicos = resultMedicos, pacientes = resultVisitas, inventario = resultReporte, total = resultPop, hospitales = resultHosp, clinicas = resultClinic, centros = resultCentro)
  
 
+#-----------------------------------------Agregar a Historial----------------------------------------
+@app.route('/AgregarAHistorial')
+def AddHistorial():
+    return render_template('medicamentos/AddHistorial.html')
+
+#-----------------------------------------Agregar a Paciente----------------------------------------
+@app.route('/AgregarPaciente')
+def AddPaciente():
+    return render_template('pacientes/AddPaciente.html')
+
+
+
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     app.run()
