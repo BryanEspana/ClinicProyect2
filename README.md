@@ -1,6 +1,6 @@
 # ClinicProyect2
 
-Link del repositorio: https://github.com/BryanEspana/ClinicProyect2
+Link del repositorio: https://github.com/BryanEspana/ClinicProyect2/tree/backend2sebas
 
 Instalar Python y configurar ruta PATH
 
