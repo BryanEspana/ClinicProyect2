@@ -115,12 +115,12 @@
                 </tr>
             </thead>
             <tbody>
-              {% for visita in visitas %}
+              {% for paciente in pacientes %}
                 <tr>
-                  <td>{{ visita.cuenta }}</td>
-                  <td>{{ visita.nombre }}</td>
-                  <td>{{ visita.telefono }}</td>
-                  <td>{{ visita.direccion }}</td>
+                  <td>{{ paciente[0] }}</td>
+                  <td>{{ paciente[1] }}</td>
+                  <td>{{ paciente[2] }}</td>
+                  <td>{{ paciente[3] }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -178,7 +178,7 @@
               <tbody>
                 {% for establecimiento in hospitales %}
                   <tr>
-                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.nombre }}</td>
                     <td>{{ establecimiento.cantidad_pacientes }}</td>
                   </tr>
                 {% endfor %}
@@ -195,7 +195,7 @@
               <tbody>
                 {% for establecimiento in clinicas %}
                   <tr>
-                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.nombre }}</td>
                     <td>{{ establecimiento.cantidad_pacientes }}</td>
                   </tr>
                 {% endfor %}
@@ -212,7 +212,7 @@
               <tbody>
                 {% for establecimiento in centros %}
                   <tr>
-                    <td>{{ establecimiento.lugar }}</td>
+                    <td>{{ establecimiento.nombre }}</td>
                     <td>{{ establecimiento.cantidad_pacientes }}</td>
                   </tr>
                 {% endfor %}

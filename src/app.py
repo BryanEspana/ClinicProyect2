@@ -283,6 +283,12 @@ def agregarInventario():
 #-----------------------------------------dashboard-----------------------------------------
 @app.route('/dashboard/dashboard')
 def dashboard():
+    
+    return render_template('dashboard/dashboard.html')
+
+#-----------------------------------------Inventario-----------------------------------------
+@app.route('/inventario')
+def estadisticas():
     global id_lugarActual
     #Enfermedades mortales
     enfermedades = text("""SELECT e.nombre AS Enfermedad, count(h.id_enfermedad) AS Muertes FROM historial h JOIN enfermedad e ON e.id_enfermedad = h.id_enfermedad WHERE h.estado LIKE 'Muerto%' GROUP BY e.nombre ORDER BY Muertes DESC;""")
@@ -297,8 +303,15 @@ def dashboard():
                     LIMIT 10;""")
     resultMedicos = db.session.execute(medicos).fetchall()
     #pacientes mas visitados
-    visitas = text("""SELECT COUNT(h.id_paciente) AS cuenta, p.nombre, p.telefono, p.direccion FROM historial h JOIN paciente p ON h.id_paciente = p.id_paciente GROUP BY p.id_paciente ORDER BY cuenta desc WHERE h.id_lugar = :id_lugar LIMIT 5;""")
+    visitas = text("""SELECT COUNT(h.id_paciente) AS cuenta, p.nombre, p.telefono, p.direccion 
+                      FROM historial h 
+                      JOIN paciente p ON h.id_paciente = p.id_paciente 
+                      WHERE h.id_lugar = :id_lugar 
+                      GROUP BY p.id_paciente 
+                      ORDER BY cuenta desc 
+                      LIMIT 5;""")
     resultVisitas = db.session.execute(visitas, {'id_lugar': id_lugarActual}).fetchall()
+    print(resultVisitas)
     #Reporte de inventario
     reporte = text("""SELECT u.nombre, i.cantidad FROM inventario i JOIN utencilio_med u ON i.id_utencilio = u.id_utencilio WHERE i.cantidad<10 AND i.id_lugar = :id_lugar;""")
     resultReporte = db.session.execute(reporte, {'id_lugar': id_lugarActual}).fetchall()
@@ -316,12 +329,7 @@ def dashboard():
     # Centros Medicos
     Centro = text("""SELECT lugar.nombre, COUNT(*) AS cantidad_pacientes FROM lugar JOIN historial ON lugar.id_lugar = historial.id_lugar WHERE lugar.nombre LIKE '%Centro Medico%' GROUP BY lugar.nombre ORDER BY cantidad_pacientes DESC LIMIT 3;""")
     resultCentro = db.session.execute(Centro).fetchall()
-    return render_template('dashboard/dashboard.html', enfermedades = resultEnfermedades, medicos = resultMedicos, visitas = resultVisitas, inventario = resultReporte, total = resultPop, hospitales = resultHosp, clinicas = resultClinic, centros = resultCentro)
-
-#-----------------------------------------Inventario-----------------------------------------
-@app.route('/inventario')
-def estadisticas():
-    return render_template('inventario/inventario.html')
+    return render_template('inventario/inventario.html', enfermedades = resultEnfermedades, medicos = resultMedicos, pacientes = resultVisitas, inventario = resultReporte, total = resultPop, hospitales = resultHosp, clinicas = resultClinic, centros = resultCentro)
  
 
 if __name__ == '__main__':
