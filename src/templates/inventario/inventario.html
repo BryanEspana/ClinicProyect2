@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
 
-{% block title %}Main{% endblock %}
+{% block title %}Estadísticas{% endblock %}
 
 {% block customCSS %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth-css/main.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/establecimiento.css') }}">
+
 <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,29 +17,27 @@
 {% endblock %}
 
 {% block body %}
-<!DOCTYPE html>
-<html lang="es">
 <header class="header-top flex-row" style="background-color: #4b7fbd;">
-    <img class="logo-img" src="static\img\logoBlanco.png">
-    <div class=" flex-row encabezado ">
-        <!--Inicio-->
-        <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
-        <!--Establecimientos-->
-        <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
-        <!--Medicamentos-->
-        <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Historial</p></a>
-        <!--Pacientes-->
-        <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
-        <!--Estadisticas-->
-        <a href="{{ url_for('estadisticas') }}"><p class="padR4 hover-p padT1">Estadísticas</p></a>
-        <!--Cerrar Sesion-->
-        <a href="logout"><p class="padR4 hover-p padT1">Cerrar sesion</p></a>
-        <!--Icono Usuario-->
-          <div class="profile-img-container">
-            <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
-        </div>
-          
-    </div>
+  <img class="logo-img" src="static\img\logoBlanco.png">
+  <div class=" flex-row encabezado ">
+      <!--Inicio-->
+      <a href="{{ url_for('inicio') }}"><p class="padR4 hover-p padT1">Inicio</p></a>
+      <!--Establecimientos-->
+      <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
+      <!--Medicamentos-->
+      <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Historial</p></a>
+      <!--Pacientes-->
+      <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
+      <!--Estadisticas-->
+      <a href="{{ url_for('estadisticas') }}"><p class="padR4 hover-p padT1">Estadísticas</p></a>
+      <!--Cerrar Sesion-->
+      <a href="logout"><p class="padR4 hover-p padT1">Cerrar sesion</p></a>
+      <!--Icono Usuario-->
+        <div class="profile-img-container">
+          <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
+      </div>
+        
+  </div>
 
 </header>
 <body class="center">
@@ -46,25 +45,25 @@
     <!--Pestaña info pacientes-->
     <div class="center flex-column">
         
-        <h3 class="titulo">Establecimiento:</h3>
+        <h3 class="titulo">Estadísticas:</h3>
 
         <div style="display: flex; flex-direction: row;">
-          <div class="flex-row establecimientoTitulos">
-              <p class=" inventario" id="btn-inventario">Inventario</p>
-              <p class="personal pad" id="btn-personal">Personal</p>
-              <p class="personal " id="btn-usuarios">Usuarios</p>
+            <div class="flex-row establecimientoTitulos">
+                <p class=" inventario" id="btn-enfMortales">Enfermedades Mortales</p>
+                <p class="personal pad" id="btn-MedPopulares">Medicos Populares</p>
+                <p class="personal " id="btn-pacVisitados">Pacientes más visitados</p>
+                <p class="personal " id="btn-repInv">Reporte inventario</p>
+                <p class="personal " id="btn-estPopulares">Establecimientos populares</p>
+            </div>  
           </div>
-          <div class="flex-row establecimientoTituloAlerta"  id="btn-alerta">
-            <img src="static\img\alert.png" alt="" style="width: 90%;">
-          </div>
-        </div>
 
+          
 
         <div class="padT3 Organiza-establ" style=" display: true;">
             <h2>Organiza tu establecimiento</h2>
         </div>
         <!--Tabla de inventario-->
-        <div class="margin tabla-inventario"  style="display: none;">
+        <div class="margin tabla-enfMortales"  style="display: none;">
             <a href="{{url_for('agregarInventario')}}">
               <button style="background-color: #43BF5A;" >Agregar a inventario</button>
             </a>  
@@ -99,7 +98,7 @@
           </div>
 
           <!--Tabla de personal-->
-          <div class="margin-personal tabla-personal"  style="display: none;">
+          <div class="margin-personal tabla-MedPopulares"  style="display: none;">
             <table>
               <thead>
                 <tr>
@@ -136,7 +135,7 @@
           </div>
 
         <!--Tabla de Usuarios-->
-        <div class="margin tabla-usuarios"  style="display: none;">
+        <div class="margin tabla-PacVisitados"  style="display: none;">
           <table>
             <thead>
               <tr>
@@ -164,8 +163,8 @@
           </table>
         </div>
 
-        <!--Alerta-->
-        <div class="alerta-establ" style="display: none;">
+        <!-- Tabla RepInv-->
+        <div class="tabla-repInv" style="display: none;">
           <h2>Medicamentos Necesarios </h2>
           <p>Se ha detectado que el inventario de tu establecimiento está por debajo de lo recomendado</p>
           <table>
@@ -194,59 +193,110 @@
             </tbody>
           </table>
         </div>
+
+        <!--Tabla Estalecimientos populares-->
+        <div class="margin tabla-estPopulares"  style="display: none;">
+          <table>
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Dirección</th>
+                  <th>Teléfono</th>
+                  <th>Guardar</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for establecimiento in establecimientos %}
+                <tr>
+                  <form action="{{ url_for('establecimientos')}}"  method="POST">
+                    <td><input class="inputs-establecimiento" type="text" name="id" id="" value="{{ establecimiento.id_lugar }}"></td>
+                    <td><input class="inputs-establecimiento" type="text" name="nombre" id="" value="{{ establecimiento.nombre }}"></td>
+                    <td><input class="inputs-establecimiento" type="text" name="direccion" id="" value="{{ establecimiento.direccion }}"></td>
+                    <td><input class="inputs-establecimiento" type="text" name="telefono" id="" value="{{ establecimiento.telefono }}"></td>
+                    <td>
+                      <input type="hidden" name="identificador" value="establecimiento">
+                      <input class="inputEdit" value="Guardar" placeholder="Editar" type="submit">        
+                    </td>
+                  </form>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
     </div>
     
+    </div>
+    
+   
 <script>
     
     document.addEventListener('DOMContentLoaded', () => {
-    const btnInventario = document.querySelector('#btn-inventario');
-    const btnPersonal = document.querySelector('#btn-personal');
-    const btnUsuario = document.querySelector('#btn-usuarios');
-    const btnAlerta = document.querySelector('#btn-alerta');
-    const tablaInventario = document.querySelector('.tabla-inventario');
-    const tablaPersonal = document.querySelector('.tabla-personal');
-    const tablaUsuarios = document.querySelector('.tabla-usuarios');
+    const btnEnfMortales = document.querySelector('#btn-enfMortales');
+    const btnMedPopulares = document.querySelector('#btn-MedPopulares');
+    const btnPacVisitados = document.querySelector('#btn-pacVisitados');
+    const btnRepInv = document.querySelector('#btn-repInv');
+    const btnEstPopulares = document.querySelector('#btn-estPopulares');
+    const tablaEnfMortales = document.querySelector('.tabla-enfMortales');
+    const tablaMedPopulares = document.querySelector('.tabla-MedPopulares');
+    const tablaPacVisitados = document.querySelector('.tabla-PacVisitados');
+    const tablaRepInv = document.querySelector('.tabla-repInv');
+    const tablaEstPopulares = document.querySelector('.tabla-estPopulares');
     const textOrganiza = document.querySelector('.Organiza-establ');
-    const textAlerta = document.querySelector('.alerta-establ');
 
-    btnInventario.addEventListener('click', () => {
-        tablaInventario.style.display = 'block';
-        tablaPersonal.style.display = 'none';
-        tablaInventario.style.display = 'true';
+    btnEnfMortales.addEventListener('click', () => {
+        tablaEnfMortales.style.display = 'block';
+        tablaMedPopulares.style.display = 'none';
+        tablaEnfMortales.style.display = 'true';
         textOrganiza.style.display = 'none';
-        tablaUsuarios.style.display = 'none';
-        textAlerta.style.display = 'none';
+        tablaPacVisitados.style.display = 'none';
+        tablaRepInv.style.display = 'none';
+        tablaEstPopulares.style.display = 'none';
+
+    });
+
+    btnMedPopulares.addEventListener('click', () => {
+        tablaMedPopulares.style.display = 'block';
+        tablaEnfMortales.style.display = 'none';
+        tablaMedPopulares.style.display = 'true';
+        textOrganiza.style.display = 'none';
+        tablaPacVisitados.style.display = 'none';
+        tablaRepInv.style.display = 'none';
+        tablaEstPopulares.style.display = 'none';
+
 
 
     });
 
-    btnPersonal.addEventListener('click', () => {
-        tablaPersonal.style.display = 'block';
-        tablaInventario.style.display = 'none';
-        tablaPersonal.style.display = 'true';
+    btnPacVisitados.addEventListener('click', () => {
+        tablaPacVisitados.style.display = 'block';
+        tablaEnfMortales.style.display = 'none';
+        tablaPacVisitados.style.display = 'true';
         textOrganiza.style.display = 'none';
-        tablaUsuarios.style.display = 'none';
-        textAlerta.style.display = 'none';
+        tablaMedPopulares.style.display = 'none';
+        tablaRepInv.style.display = 'none';
+        tablaEstPopulares.style.display = 'none';
 
 
     });
 
-    btnUsuario.addEventListener('click', () => {
-        tablaUsuarios.style.display = 'block';
-        tablaInventario.style.display = 'none';
-        tablaUsuarios.style.display = 'true';
+    btnRepInv.addEventListener('click', () => {
+        tablaRepInv.style.display = 'block';
+        tablaEnfMortales.style.display = 'none';
+        tablaRepInv.style.display = 'true';
         textOrganiza.style.display = 'none';
-        tablaPersonal.style.display = 'none';
-        textAlerta.style.display = 'none';
+        tablaMedPopulares.style.display = 'none';
+        tablaPacVisitados.style.display = 'none';
+        tablaEstPopulares.style.display = 'none';
     });
 
-    btnAlerta.addEventListener('click', () => {
-        textAlerta.style.display = 'block';
-        tablaInventario.style.display = 'none';
-        textAlerta.style.display = 'true';
+    btnEstPopulares.addEventListener('click', () => {
+        tablaEstPopulares.style.display = 'block';
+        tablaEnfMortales.style.display = 'none';
+        tablaEstPopulares.style.display = 'true';
         textOrganiza.style.display = 'none';
-        tablaPersonal.style.display = 'none';
-        tablaUsuarios.style.display = 'none';
+        tablaMedPopulares.style.display = 'none';
+        tablaPacVisitados.style.display = 'none';
+        tablaRepInv.style.display = 'none';
     });
 });
 

@@ -39,6 +39,9 @@
 .margin{
    width: 50%;
 }
+.margin-personal{
+  width: 90%;
+}
 .marL1{
     margin-left: 1rem;
 }
@@ -242,4 +245,46 @@ p{
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
   padding-left: 1rem;
+}
+.inputs-establecimiento{
+  cursor: pointer;
+  text-align: left;
+  width: 50%;
+  padding: 0.3rem;
+  color: rgb(0, 0, 0) !important;
+  background-color:#ebebeb00;
+  border: none;
+  border-radius: 0.3rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding-left: 1rem;
+}
+.inputs-agregar{
+  cursor: pointer;
+  text-align: left;
+  width: 50%;
+  padding: 0.3rem;
+  color: rgb(0, 0, 0) !important;
+  background-color:#ffffff;
+  border: solid #315c8085;
+  border-radius: 0.3rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding-left: 1rem;
+}
+.inventario{
+  background-color: #00000005;
+  border-radius: 1rem; 
+  color: white; 
+  padding-top: 1rem; 
+  padding-bottom: 1rem;
+
+}
+.text-inv{
+  color: black;
+}
+.img-inventario{
+  width: 25%;
+  position: absolute;
+  top:10rem;
 }

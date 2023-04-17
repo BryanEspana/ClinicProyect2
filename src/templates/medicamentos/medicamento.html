@@ -23,10 +23,13 @@
       <!--Establecimientos-->
       <a href="{{ url_for('establecimientos') }}"><p class="padR4 hover-p padT1">Establecimientos</p></a>
       <!--Medicamentos-->
-      <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Medicamentos</p></a>
+      <a href="{{ url_for('medicamentos') }}"><p class="padR4 hover-p padT1">Historial</p></a>
       <!--Pacientes-->
       <a href="{{ url_for('paciente') }}"><p class="padR4 hover-p padT1">Pacientes</p></a>
-
+      <!--Estadisticas-->
+      <a href="{{ url_for('estadisticas') }}"><p class="padR4 hover-p padT1">Estadísticas</p></a>
+      <!--Cerrar Sesion-->
+      <a href="logout"><p class="padR4 hover-p padT1">Cerrar sesion</p></a>
       <!--Icono Usuario-->
         <div class="profile-img-container">
           <img src="static\img\doc.jpg" alt="Perfil de usuario" class="profile-img">
@@ -40,7 +43,7 @@
     <!--Pestaña info pacientes-->
     <div class="center flex-column">
         
-        <h3 class="titulo">Medicos:</h3>
+        <h3 class="titulo">Historial:</h3>
         <div class="margin">
         <table>
             <thead>

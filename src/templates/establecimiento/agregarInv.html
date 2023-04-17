@@ -42,48 +42,33 @@
 
     <!--Pestaña info pacientes-->
     <div class="center flex-column">
-        
-        <h3 class="titulo">Pacientes:</h3>
-        <div class="margin">
-        <table>
-          <thead>
-            <tr class="center">
-              <!--{% for i in columns %}
-                <th>{{ i }}</th>
-              {% endfor %}-->
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Masa Corporal</th>
-              <th>Altura</th>
-              <th>Adicciones</th>
-              <th>Teléfono</th>
-              <th>Dirección</th>
-              <th>Ver Información</th>
+        <h3 class="titulo">Agregar a inventario:</h3>
+        <div class="margin " >
+            <hr>
+            <div class="infoPaciente">
+                <form style="display: flex; flex-direction: column;">
+                    <label class="text-inv">ID del paciente:</label>
+                    <select class="inputPacientes">{{id_paciente}}</select>
+                    <label class="text-inv"> Lugar</label>
+                    <select name="Lugar" class="inputPacientes"></select>
+                    <label class="text-inv"> Lugar</label>
+                    <input type="text" class="inputPacientes">
+                    <label class="text-inv"> Lugar</label>
+                    <input type="date" class="inputPacientes">
+                    <div style="display: flex; flex-direction: row;">
+                        <!--Cancelar-->
+                        <a href="{{url_for('establecimientos')}}" style="border: none; border-radius: 0.5rem; width: 20%; margin-top: 1rem; margin-right: 1rem; text-align: center; background-color: #CE4343;">
+                            <button class="btn-info" style="background-color: #4b7ebd00;" > Cancelar</button>
 
-            </tr>
-          </thead>
-          <tbody>
-            {% for paciente in pacientes %}
-              <tr>
-                <td>{{ paciente.id_paciente }}</td>
-                <td>{{ paciente.nombre }}</td>
-                <td>{{ paciente.masacorporal }}</td>
-                <td>{{ paciente.altura }}</td>
-                <td>{{ paciente.adicciones }}</td>
-                <td>{{ paciente.telefono }}</td>
-                <td>{{ paciente.direccion }}</td>
-                <td>
-                  <form action="{{ url_for('infoPaciente') }}" method="POST" >
-                    <input type="hidden" name="id_paciente" value="{{ paciente.id_paciente }}">
-                    <input class="inputEdit" value="Ver información" placeholder="Editar" type="submit">
-                  </form>
-                </td>            
-              </tr>
-            {% endfor%}
-            <!-- Agrega más filas aquí siguiendo el mismo formato -->
-          </tbody>
-        </table>
-      </div>
+                        </a>
+                        <!--Agregar a inventario-->
+                        <input  type="submit" class="btn-info" style="border: none; width: 20%; margin-top: 1rem; text-align: center; " value="Agregar">    
+                    </div>
+                
+                </form>
+            </div>
+            <img src="static\img\inventario.png" alt="" class="img-inventario">
+        </div>
     </div>
 
 

@@ -9,7 +9,7 @@ app=Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 id_usuarioActual = 0
-id_pacienteActual = 0
+id_lugarActual = 0
 
 with app.app_context():
     db.create_all()
@@ -63,9 +63,6 @@ def logout():
 def login():
     return render_template('auth/login.html')
 
-@app.route('/dashboard/dashboard')
-def dashboard():
-    return render_template('dashboard/dashboard.html')
 
 
 @app.route('/inicio', methods=('GET', 'POST'))
@@ -86,7 +83,9 @@ def inicio():
         else:
             # si la autenticación es exitosa, inicia sesión y redirecciona al dashboard
             global id_usuarioActual
+            global id_lugarActual
             id_usuarioActual = result[0]  # asignar el valor de la consulta a la variable global
+            id_lugarActual = db.session.execute(text("SELECT id_lugar FROM medico WHERE id_medico = :id"), {'id': id_usuarioActual}).fetchone()[0]
             return render_template('dashboard/dashboard.html')
 
     return render_template('dashboard/dashboard.html')
@@ -175,13 +174,72 @@ def medicamentos():
     return render_template('medicamentos/medicamento.html')
 
 #-----------------------------------------Establecimientos-----------------------------------------
-@app.route('/establecimiento')
+@app.route('/establecimiento', methods=['GET', 'POST'])
 def establecimientos():
+    global id_lugarActual
+
     query1 = text("""SELECT * FROM usuario""")
     query2 = text("""SELECT * FROM medico""")
-    query3 = text("""SELECT * FROM paciente""")
-    return render_template('establecimiento/establecimiento.html')
+    query3 = text("""SELECT u.nombre, i.cantidad FROM inventario i JOIN utencilio_med u ON i.id_utencilio = u.id_utencilio WHERE i.cantidad<10 AND i.id_lugar = :id_lugar;""")
+    result1 = db.session.execute(query1)
+    result2 = db.session.execute(query2)
+    result3 = db.session.execute(query3, {'id_lugar': id_lugarActual})
 
+    ColumnUsuarios = result1.keys()
+    ColumnMedicos = result2.keys()
+    ColumnInventario = result3.keys()
+
+    result1 = result1.fetchall()
+    result2 = result2.fetchall()
+    result3 = result3.fetchall()
+
+    if request.method == 'POST':
+        if request.form['identificador'] == 'usuario':
+            id_usuario = request.form['id']
+            usuario = request.form['usuario']
+            password = request.form['password']
+            queryUpdate = text("""UPDATE usuario SET id_medico = :id_usuario, usuario = :usuario, password = :password WHERE id_medico = :id_usuario""")
+            db.session.execute(queryUpdate, {'id_usuario': id_usuario, 'usuario': usuario, 'password': password})
+            db.session.commit()
+            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+        elif request.form['identificador'] == 'personal':
+            id_usuario = request.form['idmedico']
+            usuario = request.form['nombre']
+            direccion = request.form['direccion']
+            telefono = request.form['telefono']
+            numero_colegiado = request.form['numcolegiado']
+            especialidad = request.form['especialidad']
+            id_lugar = request.form['lugar']
+            queryUpdate = text("""UPDATE medico SET id_medico = :id_usuario, nombre = :usuario, direccion = :direccion, telefono = :telefono, numcolegiado = :numcolegiado, especialidad = :especialidad, id_lugar = :id_lugar WHERE id_medico = :id_usuario""")
+            db.session.execute(queryUpdate, {'id_usuario': id_usuario, 'usuario': usuario, 'direccion': direccion, 'telefono': telefono, 'numcolegiado': numero_colegiado, 'especialidad': especialidad, 'id_lugar': id_lugar})
+            db.session.commit()
+            return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+       
+
+    return render_template('establecimiento/establecimiento.html', usuarios=result1, personal=result2, inventario=result3, ColumnUsuarios=ColumnUsuarios, ColumnMedicos=ColumnMedicos, ColumnInventario=ColumnInventario)
+
+#---------------------Agregar a inventario---------------------
+@app.route('/agregarInventario')
+def agregarInventario():
+    #global id_lugarActual
+    #id_utencilio = request.form['id_utencilio']
+    #cantidad = request.form['cantidad']
+    #query = text("""INSERT INTO inventario (id_utencilio, cantidad, id_lugar) VALUES (:id_utencilio, :cantidad, :id_lugar)""")
+    #db.session.execute(query, {'id_utencilio': id_utencilio, 'cantidad': cantidad, 'id_lugar': id_lugarActual})
+    #db.session.commit()
+    return render_template('establecimiento/agregarInv.html')
+
+
+#-----------------------------------------dashboard-----------------------------------------
+@app.route('/dashboard/dashboard')
+def dashboard():
+    return render_template('dashboard/dashboard.html')
+
+#-----------------------------------------Inventario-----------------------------------------
+@app.route('/inventario')
+def estadisticas():
+    return render_template('inventario/inventario.html')
+ 
 
 if __name__ == '__main__':
     app.config.from_object(config['development'])
